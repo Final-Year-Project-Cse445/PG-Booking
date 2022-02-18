@@ -1,11 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const ejsMate = require('ejs-mate');
 const path = require('path');
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.set('view engine', 'ejs');
 app.set('views',path.join(__dirname,'/views'));
+app.engine('ejs',ejsMate);
 
 //Database Connection Code.
 mongoose.connect('mongodb://localhost:27017/test01')
@@ -37,6 +39,12 @@ app.get('/login',(req,res)=>{
 app.get('/signup',(req,res)=>{
     res.render('signup');
 })
+
+app.get('/contact',(req,res)=>{
+    res.render('contact');
+})
+
+
 
 app.get('*',(req,res)=>{
     res.send('Please Check Url Address');
