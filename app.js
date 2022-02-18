@@ -21,6 +21,11 @@ app.get('/',(req,res)=>{
     res.render('Landing');
 })
 
+app.get('/nav',(req,res)=>{
+    res.render('partials/navbar');
+})
+
+
 app.get('/home',(req,res)=>{
     res.render('home');
 })
