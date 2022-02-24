@@ -10,9 +10,10 @@ app.set('views',path.join(__dirname,'/views'));
 app.engine('ejs',ejsMate);
 
 //Database Connection Code.
+const pgModel = require('./models/Pgmodel');
 mongoose.connect('mongodb://localhost:27017/test01')
-.then(()=>{ console.log('Database Connected') })
-.catch((error)=>{ 
+    .then(()=>{ console.log('Database Connected') })
+    .catch((error)=>{ 
     console.log('Error in Connecting Databse');
     console.log(error);
 })
@@ -23,9 +24,9 @@ app.get('/',(req,res)=>{
     res.render('Landing');
 })
 
-app.get('/nav',(req,res)=>{
-    res.render('partials/navbar');
-})
+// app.get('/nav',(req,res)=>{
+//     res.render('partials/navbar');
+// })
 
 
 app.get('/home',(req,res)=>{
@@ -35,6 +36,9 @@ app.get('/home',(req,res)=>{
 app.get('/login',(req,res)=>{
     res.render('login');
 })
+app.get('/show',(req,res)=>{
+    res.render('show');
+})
 
 app.get('/signup',(req,res)=>{
     res.render('signup');
@@ -43,6 +47,12 @@ app.get('/signup',(req,res)=>{
 app.get('/contact',(req,res)=>{
     res.render('contact');
 })
+
+// app.get('/test', async (req,res)=>{
+//     const pg = new pgModel({title:'First',price:67});
+//     await pg.save();
+//     res.send(pg);
+// })
 
 
 

@@ -6,6 +6,7 @@ const pgSchema = new Schema({
     price : Number,
     description : String,
     location : String,
+    rating : Number
 })
 
 module.exports = mongoose.model('pgModel',pgSchema);
