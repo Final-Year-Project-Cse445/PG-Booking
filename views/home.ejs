@@ -1,4 +1,10 @@
 <% layout('layout/boilerplate') %> 
 
-
-
+<div>
+    <ul>
+        <% for(let pg of Pgs ) { %> 
+            <li><a href="/home/<%= pg._id %>" ><%= pg.title %> </a></li>
+            <%  } %>
+    </ul>
+     
+</div>

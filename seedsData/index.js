@@ -12,8 +12,6 @@ db.once('open',()=>{
 
 const seedDB = async ()=>{
     await pg.deleteMany({});
-    // const Pg = new pg({title: `${pgs[0].title}`});
-    // await Pg.save();
     for(let i=0; i<pgs.length; i++){
         const Pg = new pg({
             title: `${pgs[i].title}`,

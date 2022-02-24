@@ -24,13 +24,14 @@ app.get('/',(req,res)=>{
     res.render('Landing');
 })
 
-// app.get('/nav',(req,res)=>{
-//     res.render('partials/navbar');
-// })
+app.get('/home', async (req,res)=>{
+    const Pgs = await pgModel.find({});
+    res.render('home',{Pgs});
+})
 
-
-app.get('/home',(req,res)=>{
-    res.render('home');
+app.get('/home/:id', async (req,res)=>{
+    const Pg = await pgModel.findById(req.params.id);
+    res.render('view',{Pg});
 })
 
 app.get('/login',(req,res)=>{
@@ -47,14 +48,6 @@ app.get('/signup',(req,res)=>{
 app.get('/contact',(req,res)=>{
     res.render('contact');
 })
-
-// app.get('/test', async (req,res)=>{
-//     const pg = new pgModel({title:'First',price:67});
-//     await pg.save();
-//     res.send(pg);
-// })
-
-
 
 app.get('*',(req,res)=>{
     res.send('Please Check Url Address');
