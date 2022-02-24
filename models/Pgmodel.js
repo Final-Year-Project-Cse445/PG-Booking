@@ -3,10 +3,10 @@ const Schema = mongoose.Schema;
 
 const pgSchema = new Schema({
     title : String,
-    price : Number,
+    price : String,
     description : String,
     location : String,
-    rating : Number
+    rating : String
 })
 
 module.exports = mongoose.model('pgModel',pgSchema);
