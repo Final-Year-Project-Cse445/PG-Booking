@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
+const methodOverride = require('method-override');
 const path = require('path');
 const app = express();
 
@@ -11,6 +12,9 @@ app.engine('ejs',ejsMate);
 
 //to parse the body of post requests.
 app.use(express.urlencoded({extended:true}));
+
+//to overide and use method like update and delete.
+app.use(methodOverride('_method'));
 
 //Database Connection Code.
 const pgModel = require('./models/Pgmodel');
@@ -36,7 +40,7 @@ app.get('/home/new',(req,res)=>{
     res.render('Pg/new');
 })
 
-app.get('home/show',(req,res)=>{
+app.get('/home/show',(req,res)=>{
     res.render('Pg/show');
 })
 
@@ -48,7 +52,12 @@ app.post('/home/new',async (req,res)=>{
 
 app.get('/home/:id', async (req,res)=>{
     const Pg = await pgModel.findById(req.params.id);
-    res.render('view',{Pg});
+    res.render('Pg/view',{Pg});
+})
+
+app.get('/home/:id/edit',async(req,res)=>{
+    const Pg = await pgModel.findById(req.params.id);
+    res.render('Pg/edit',{ Pg });
 })
 
 app.get('/login',(req,res)=>{
@@ -65,6 +74,18 @@ app.get('/contact',(req,res)=>{
 
 app.get('/userGuide',(req,res)=>{
     res.render('Guides/UserGuidelines')
+})
+
+app.put('/home/:id',async (req,res)=>{
+    const { id } = req.params;
+    const Pg = await pgModel.findByIdAndUpdate(id,{...req.body.pg});
+    res.redirect(`/home/${id}`);
+})
+
+app.delete('/home/:id',async (req,res)=>{
+    const { id } = req.params;
+    await pgModel.findByIdAndDelete(id);
+    res.redirect('/home');
 })
 
 app.get('*',(req,res)=>{
