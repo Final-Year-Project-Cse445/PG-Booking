@@ -1,0 +1,103 @@
+@media (min-width: 768px) {
+    .navbar-brand.abs
+        {
+            position: absolute;
+            width: auto;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+    }
+    .b-container{
+        background-color:#4077c8;
+        height:100vh;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+    *{
+        font-family:'verdana';
+        padding:0;
+        margin:0;
+        box-sizing:border-box;
+    }
+    .s-container{
+        width:900px;
+        padding:30px 135px 30px 100px;
+        background-image: url('https://colorlib.com/etc/regform/colorlib-regform-35/images/form-v9.jpg');
+        background-size: cover;
+        border-radius: 27px;
+    }
+    h1{
+        position: relative;
+        margin-bottom:55px;
+        text-align: center;
+        color:#fff;
+        padding: 16px 0px;
+        margin-top:70px;
+    }
+    .in input{
+        width: 100%;
+        font-size: 16px;
+        font-weight: 700;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 27px;
+        border: 2px solid #ccc;
+        padding: 14.5px 0px 14.5px 30px;
+        outline: none;
+        color:#fff;
+    }
+    ::placeholder{
+        color:#ddd;
+    }
+    .in{
+        margin-bottom: 45px;
+    }
+    .ins{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        grid-column-gap: 50px;
+    }
+    form{
+        text-align: center;
+    }
+    
+    h1::after{
+        background-color: #fff;
+        width: 73px;
+        height: 3px;
+        content: "";
+        position: absolute;
+        top:100%;
+        right: 50%;
+        transform: translateX(50%);
+    }
+    #sub button{
+        width: 300px;
+        padding: 13px 20px;
+        border-radius: 27px;
+        background-color: #f25d5d;
+        color: #fff;
+        font-size: 16px;
+        text-transform: uppercase;
+    }
+    #sub{
+        padding-bottom: 70px;
+    }
+    @media(max-width:800px){
+        .container{
+            width: 500px;
+            padding:60px 20px;
+        }
+        .ins{
+            display: block;
+        }
+        h1{
+            padding: 0;
+            margin-top: 0;
+        }
+        #sub{
+            padding: 0;
+        }
+    
+    }
