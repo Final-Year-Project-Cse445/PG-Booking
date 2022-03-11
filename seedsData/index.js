@@ -18,7 +18,8 @@ const seedDB = async ()=>{
             price: `${pgs[i].price}`,
             description: `${pgs[i].description}`,
             location: `${pgs[i].location}`, 
-            rating: `${pgs[i].rating}`
+            rating: `${pgs[i].rating}`,
+            image : `https://images.unsplash.com/photo-1646265849745-39ddf45677c0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY0NzAwMjI2MQ&ixlib=rb-1.2.1&q=80&w=1080`,
         });
         await Pg.save();
     }

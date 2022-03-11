@@ -12,10 +12,16 @@
     <div>
         <h2>Id : <%= Pg._id %> </h2>
         <h2>Title : <%= Pg.title %> </h2>
+        <img src="<%= Pg.image %> " alt="" srcset="">
         <h2>price : <%= Pg.price %> </h2>
         <h2>description : <%= Pg.description %> </h2>
         <h2>location : <%= Pg.location %> </h2>
         <h2>Rating : <%= Pg.rating %> </h2>
+        <br>
+        <a href="/home/<%=Pg._id %>/edit">Edit</a>
+        <form action="/home/<%= Pg._id %>?_method=DELETE" method="post">
+            <button>Delete</button>
+        </form>
     </div>
 <!-- </body>
 </html> -->
