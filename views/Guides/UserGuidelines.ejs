@@ -1,226 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Guidelines</title>
-    <script src=
-    "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js">
-        </script>
-    <style>
-        body{
-            margin: 0;
-            padding: 0;
-            background-color: darkgrey;
-            /* background-image: url('./getMyPg.jpeg'); */
-            font-family: 'Times New Roman', Times, serif;
-            background-size: cover;
-            background-repeat: no-repeat;
-           
-        }
-        div.main{
-            width: 60%;
-             min-height: auto;
-            top: 50%;
-            left: 50%;
-            opacity: 1;
-            margin-top: 50px;
-             position: absolute;
-             border-radius: 10px;
-            transform: translate(-50%,-50%);
-            background-color: slategrey;
-           
-        }
-        .makeTextCenter{
-            
-            font-weight: 400;
-            font-size: 2.5rem;
-            color: red;
-            width: auto;
-            padding-top: 0;
-            margin-top: 0px;
-            letter-spacing: 2px;
-            word-spacing: 5px;
-            text-align: center;
-            margin: 10px;
-            background-color: aqua;
-            border-radius: 10px;
-        
-            /* text-shadow: 20px 4px 8px  blue; */
-        }
-        .Mytext{
-            color: yellow;
-            font-size: 2rem;
-            font-style: italic;
-            text-align: center;
-        
-            margin: 10px;
-
-        }
-        /* .marq{
-            color: yellow;
-            font-size: 2rem;
-            font-style: italic;
-            text-align: center;
-        
-            margin: 10px;
-        } */
-        div.allPermits{
-            background-color: gold;
-            color: blue;
-            font-style: normal;
-            margin: 10px;
-            font-size: 16px;
-            padding: 10px;
-            border-radius: 10px;
-            /* text-shadow: 4px 2px 4px green; */
-            
-        }
-        .chkpermits{
-            
-            width: 60%;
-            line-height: 10px;
-        }
-        .chkBox{
-            width: 20px;
-            height: 20px;
-            
-        }
-        .termConditions{
-            color: white;
-            font-size: 1.5rem;
-            text-shadow: 2px 2px 8px #FF0000;
-        }
-        .a,.b{
-            width: 100px;
-            height: 40px;
-            font-size: 1rem;
-            border-radius: 20px;
-            border: 2px solid red;
-
-        }
-        .a:hover{
-            background-color: green;
-            color: white;
-
-        }
-   .b{
-       background-color: red;
-       color: white;
-   }
-
-   /* ************************** */
-
-
-
-  
-     /* style="background-image: url('./getMyPg.jpeg');" */
-     div.modeClass{
-         width: auto;
-         height: auto;
-         float: right;
-         line-height: 30px;
-         font-family: 'Times New Roman', Times, serif;
-         font-size: 16px;
-         letter-spacing: 2px;
-         padding: 5px;
-         border-radius: 10px;
-         text-align: center;
-         background-color: black;
-         color: white;
-         
-         box-shadow: 5px 5px 5px 4px cyan;
-         text-shadow: 3px 5px 3px 5px white;
-     }
-     .changeClass{
-         font-size: 16px; 
-         margin-left: 0px;
-         background-color: white;
-         color: black;
-         border-radius: 50px;
-         padding: 5px;
-         
-         
-     }
-     div.modeClass:hover{
-         background-color: blue;
-         color: cyan;
-         cursor: pointer;  
-     }
-
-     /* this is for just toggle the day mode to night mode and night mode to day mode  */
-/* 
-     .dark-mode {
-             background-color: black;
-             color: white;
-} */
-.dark {
-             background-color: black;
-             color: white;
-}
-
-
-
-
-
-
-
-/* ************************************** */
-    </style>
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/guide_styles.css">
 </head>
+
 <body>
-
-    <div class="modeClass" onclick="myFunction()">
-        Dark Mode
-<span class="changeClass">OFF</span>
-</div>
-    <div class="main">
-        <strong><b><h1 class="makeTextCenter">User Guidelines</h1></b></strong>
-        <h2 class="Mytext">Read The Guidelines Properly && Carefully Given by Owner</h2>
-      <!-- <marquee behavior="" direction="right" scrollamount='12' loop='infinte'  class="marq">
-          Read The Guidelines Properly && Carefully Given by Owner </marquee> -->
-        <div class="allPermits">
-      <ol type="1">
-          <li><h3>After taking the permission from the owner you can go anywhere for the officials purposes .</h3></li>
-          <li><h3>User are not allowed to bring any strangers</h3></li>
-          <li><h3>User should submit his/her details to the owner including Adhar Card and Parents Phone Numbers.</h3></li>
-          <li><h3>Rs 1000 should be given in the advanced after booking our PG .</h3></li>
-          <li><h3>All your advanced is added in  your room rent .</h3></li>
-          <li><h3>All room rents should be given on the time .</h3></li>
-          <li> <h3>Only in emergency cases , rent problems is considered only for 15 days .</h3></li>
-          <li><h3>Only after the full and legitimate verification of the user , PG is given . </h3></li>
-          <li><h3>User can visit and see inside the our PG to know what are the facilities we are providing 
-              and what types of environment we have given</h3></li><br>
-
-             <div class=" chkpermits"> <input type="checkbox" name="" id="" class="chkBox"><span class="termConditions">Accept The Terms 
-                 & Conditions</span> </div><br><br><br>
-
-             <div class="submitReset">
-                   
-                    <input type="button" value="Submit" class="a"> <input type="button" value="Cancel" class="b">
-            </div>
-      </ol>
+    
+<nav class="navbar navbar-expand-md navbar-dark bg-dark justify-content-center">
+    <div class="container">
+        <a href="/" class="navbar-brand d-flex w-50 me-auto">GMP</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsingNavbar3">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
+            <ul class="navbar-nav w-100 justify-content-center">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/home/show">PG</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav ms-auto w-100 justify-content-end">
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/signup">Signup</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Admin </a>
+                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarScrollingDropdown">
+                        <li><a class="dropdown-item" href="/home/new">Add Pg</a></li>
+                        <li><a class="dropdown-item" href="#">Edit</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="/userGuide">User GuideLines</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
-
-    <script>
-        // for line no58
-        // function myFunction() {
-        //    var element = document.body;
-        //    element.classList.toggle("dark-mode");
-        // }
-        
-        
-                    $( ".changeClass" ).on("click", function() {
-                        if( $( "body" ).hasClass( "dark" )) {
-                            $( "body" ).removeClass( "dark" );
-                            $( ".changeClass" ).text( "OFF" );
-                        } else {
-                            $( "body" ).addClass( "dark" );
-                            $( ".changeClass" ).text( "ON" );
-                        }
-                    });
-                </script>
+</nav>
+    <div class="b-container">
+    <div class="content-container">
+        <div class="title">
+            <h1>User Guidelines</h1>
+            <p>Read the guidelines carefully</p>
+        </div>
+        <div class="content">
+            <ul>
+                <li>After taking the permission from the owner you can go anywhere for the officials purpose</li>
+                <li>User are not allowed to bring any strangers</li>
+                <li>User should submit his/her details to the owner including Adhar Card and Parents Phone Numbers.
+                </li>
+                <li>Rs 1000 should be given in the advanced after booking our PG .</li>
+                <li>All your advanced is added in your room rent .</li>
+                <li>All room rents should be given on the time .</li>
+                <li>Only in emergency cases , rent problems is considered only for 15 days .</li>
+                <li>Only after the full and legitimate verification of the user , PG is given .</li>
+                <li>User can visit and see inside the our PG to know what are the facilities we are providing and
+                    what types of environment we have given</li>
+            </ul>
+        </div>
+    </div>
+    </div>
+</div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 </html>

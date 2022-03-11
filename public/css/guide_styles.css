@@ -1,0 +1,90 @@
+@media (min-width: 768px) {
+    .navbar-brand.abs {
+        position: absolute;
+        width: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+    }
+}
+
+.b-container {
+    min-height: 100vh;
+    background-image: url('../assets/userguidelines/top-desk1.jpg');
+    /* filter:blur(2px); */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 30px;
+}
+
+.b-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.title {
+    text-align: center;
+    color: #ddd;
+    position: relative;
+    z-index: 2;
+}
+
+ul li {
+    text-align: left;
+}
+
+/* .content-container{
+ border-radius: 27px;   
+ border:2px solid black;
+ color: #fff;
+} */
+.content {
+    border-radius: 27px;
+    border: 3px solid grey;
+    color: #ddd;
+    position: relative;
+    z-index: 2;
+    padding: 40px 50px;
+    line-height: 2.5;
+    box-shadow: 20px 20px 20px black;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 70px;
+}
+
+ul {
+    list-style: none;
+}
+
+h1 {
+    font-size: 44px;
+}
+
+p,
+li {
+    font-size: 18px;
+}
+
+@media(max-width:960px) {
+    .content{
+        line-height: 1.5;
+    }
+    li{
+        padding-bottom: 50px;
+    }
+    .content{
+        margin-left: 10%;
+        margin-right: 10%;
+        padding: 60px 15px;
+    }
+
+}
