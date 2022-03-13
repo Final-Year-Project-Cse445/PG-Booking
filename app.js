@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
+const catchAsync = require('./ErrorHandlers/catchAsync');
+const ExpresError = require('./ErrorHandlers/ExpressError');
 const path = require('path');
 const app = express();
 
@@ -18,6 +20,7 @@ app.use(methodOverride('_method'));
 
 //Database Connection Code.
 const pgModel = require('./models/Pgmodel');
+const res = require('express/lib/response');
 mongoose.connect('mongodb://localhost:27017/test01')
     .then(()=>{ console.log('Database Connected') })
     .catch((error)=>{ 
@@ -44,21 +47,23 @@ app.get('/home/show',(req,res)=>{
     res.render('Pg/show');
 })
 
-app.post('/home/new',async (req,res)=>{
-    const Pg = new pgModel(req.body.pg);
-    await Pg.save();
-    res.redirect(`/home/${Pg._id}`);
-})
+app.post('/home/new',catchAsync(async (req,res,next)=>{
+    if(!req.body.pg) throw new ExpresError('Invalid Pg Data',400);
+        const Pg = new pgModel(req.body.pg);
+        await Pg.save();
+        res.redirect(`/home/${Pg._id}`);
+}))
 
-app.get('/home/:id', async (req,res)=>{
+app.get('/home/:id', catchAsync(async (req,res)=>{
+    if(!req.params.id) throw new ExpresError('Invalid Pg',404);
     const Pg = await pgModel.findById(req.params.id);
     res.render('Pg/view',{Pg});
-})
+}))
 
-app.get('/home/:id/edit',async(req,res)=>{
+app.get('/home/:id/edit',catchAsync(async(req,res)=>{
     const Pg = await pgModel.findById(req.params.id);
     res.render('Pg/edit',{ Pg });
-})
+}))
 
 app.get('/login',(req,res)=>{
     res.render('login');
@@ -76,20 +81,27 @@ app.get('/userGuide',(req,res)=>{
     res.render('Guides/UserGuidelines')
 })
 
-app.put('/home/:id',async (req,res)=>{
+app.put('/home/:id',catchAsync(async (req,res)=>{
     const { id } = req.params;
     const Pg = await pgModel.findByIdAndUpdate(id,{...req.body.pg});
     res.redirect(`/home/${id}`);
-})
+}))
 
-app.delete('/home/:id',async (req,res)=>{
+app.delete('/home/:id',catchAsync(async (req,res)=>{
     const { id } = req.params;
     await pgModel.findByIdAndDelete(id);
     res.redirect('/home');
+}))
+
+app.all('*',(req,res,next)=>{
+    next(new ExpresError('Page Not Found',404))
 })
 
-app.get('*',(req,res)=>{
-    res.send('Please Check Url Address');
+//ExpressErrorHandler
+app.use((err, req, res,next)=>{
+    const {statusCode = 500} = err;
+    if(!err.mesage) err.message = 'Something went wrong';
+    res.status(statusCode).render('Error' , {err})
 })
 
 
