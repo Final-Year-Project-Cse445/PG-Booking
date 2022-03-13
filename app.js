@@ -2,8 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
+const Joi  = require('joi');
 const catchAsync = require('./ErrorHandlers/catchAsync');
-const ExpresError = require('./ErrorHandlers/ExpressError');
+const ExpressError = require('./ErrorHandlers/ExpressError');
 const path = require('path');
 const app = express();
 
@@ -28,6 +29,26 @@ mongoose.connect('mongodb://localhost:27017/test01')
     console.log(error);
 })
 
+//PGError_JOI_Validate Middleware
+const validatePg = (req,res,next)=>{
+    const Pgvalidate = Joi.object({
+        pg : Joi.object({
+            title : Joi.string().required(),
+            price : Joi.number().required().min(0), 
+            image : Joi.string().required(),
+            location : Joi.string().required(),
+            description : Joi.string().required(),
+            rating : Joi.number().required().max(5)
+        }).required()
+    })
+    const { error } = Pgvalidate.validate(req.body);
+    if(error){
+        const msg = error.details.map(el=> el.message).join(',')
+        throw new ExpressError(msg,400);
+    }else{
+        next();
+    }
+}
 
 //Routes
 app.get('/',(req,res)=>{
@@ -47,8 +68,8 @@ app.get('/home/show',(req,res)=>{
     res.render('Pg/show');
 })
 
-app.post('/home/new',catchAsync(async (req,res,next)=>{
-    if(!req.body.pg) throw new ExpresError('Invalid Pg Data',400);
+app.post('/home/new',validatePg, catchAsync(async (req,res,next)=>{
+    // if(!req.body.pg) throw new ExpresError('Invalid Pg Data',400);
         const Pg = new pgModel(req.body.pg);
         await Pg.save();
         res.redirect(`/home/${Pg._id}`);
@@ -94,13 +115,14 @@ app.delete('/home/:id',catchAsync(async (req,res)=>{
 }))
 
 app.all('*',(req,res,next)=>{
-    next(new ExpresError('Page Not Found',404))
+    next(new ExpressError('Page Not Found',404))
 })
 
 //ExpressErrorHandler
 app.use((err, req, res,next)=>{
     const {statusCode = 500} = err;
-    if(!err.mesage) err.message = 'Something went wrong';
+    // console.log(err.mesage)
+    if(!err.message) err.message = 'Something went wrong';
     res.status(statusCode).render('Error' , {err})
 })
 
