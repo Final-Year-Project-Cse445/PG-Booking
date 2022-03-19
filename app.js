@@ -21,6 +21,8 @@ app.use(methodOverride('_method'));
 
 //Database Connection Code.
 const pgModel = require('./models/Pgmodel');
+const Review = require('./models/review');
+
 const res = require('express/lib/response');
 mongoose.connect('mongodb://localhost:27017/test01')
     .then(()=>{ console.log('Database Connected') })
@@ -29,7 +31,7 @@ mongoose.connect('mongodb://localhost:27017/test01')
     console.log(error);
 })
 
-//PGError_JOI_Validate Middleware
+//PGError_JOI_Validate Middleware_for_pgvalidation
 const validatePg = (req,res,next)=>{
     const Pgvalidate = Joi.object({
         pg : Joi.object({
@@ -42,6 +44,23 @@ const validatePg = (req,res,next)=>{
         }).required()
     })
     const { error } = Pgvalidate.validate(req.body);
+    if(error){
+        const msg = error.details.map(el=> el.message).join(',')
+        throw new ExpressError(msg,400);
+    }else{
+        next();
+    }
+}
+
+//JOI_Review Validation
+const reviewvalidate = (req,res,next) => {
+    const validatereview = Joi.object({
+        review : Joi.object({
+            body : Joi.string().required(),
+            rating : Joi.number().min(1).max(5).required()
+        }).required()
+    })
+    const { error } = validatereview.validate(req.body);
     if(error){
         const msg = error.details.map(el=> el.message).join(',')
         throw new ExpressError(msg,400);
@@ -77,8 +96,17 @@ app.post('/home/new',validatePg, catchAsync(async (req,res,next)=>{
 
 app.get('/home/:id', catchAsync(async (req,res)=>{
     if(!req.params.id) throw new ExpresError('Invalid Pg',404);
-    const Pg = await pgModel.findById(req.params.id);
+    const Pg = await pgModel.findById(req.params.id).populate('reviews');
     res.render('Pg/view',{Pg});
+}))
+
+app.post('/home/:id/reviews',reviewvalidate, catchAsync(async (req,res) =>{
+    const pg = await pgModel.findById(req.params.id);
+    const review = new Review(req.body.review);
+    pg.reviews.push(review);
+    await review.save();
+    await pg.save();
+    res.redirect(`/home/${pg._id}`);
 }))
 
 app.get('/home/:id/edit',catchAsync(async(req,res)=>{
@@ -113,6 +141,15 @@ app.delete('/home/:id',catchAsync(async (req,res)=>{
     await pgModel.findByIdAndDelete(id);
     res.redirect('/home');
 }))
+
+app.delete('/home/:id/reviews/:reviewId',catchAsync(async (req,res)=>{
+    const {id,reviewId} = req.params;
+    await pgModel.findByIdAndUpdate(id, {$pull : {reviews : reviewId}});
+    await Review.findByIdAndDelete(reviewId);
+    res.redirect(`/home/${id}`);
+    
+}))
+
 
 app.all('*',(req,res,next)=>{
     next(new ExpressError('Page Not Found',404))

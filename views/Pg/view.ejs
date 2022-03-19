@@ -1,13 +1,4 @@
 <% layout('layout/boilerplate') %> 
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View</title>
-</head>
-<body> -->
     <h1>View Page</h1>
     <div>
         <h2>Id : <%= Pg._id %> </h2>
@@ -23,5 +14,26 @@
             <button>Delete</button>
         </form>
     </div>
-<!-- </body>
-</html> -->
+    <h1>Add Review </h1>
+    <form action="/home/<%= Pg._id %>/reviews" method="post">
+        <div>
+            <label class="form-label" for="Rating">Rating</label>
+            <input type="range" name="review[rating]" id="Rating" min="1" max="5" required></input>
+        </div>
+        <div>
+            <label class="form-label" for="body">Review</label>
+            <textarea name="review[body]" id="body" cols="30" rows="3" required></textarea>
+        </div>
+        <button>Submit</button>
+    </form>
+    <br>
+    <h1>User Reviews</h1>
+    <% for(let review of Pg.reviews){ %>
+    <div>
+        <p>Rating <%= review.rating %> </p>
+        <p>Review : <%= review.body %> </p>
+        <form action="/home/<%= Pg._id %>/reviews/<%= review._id %>?_method=DELETE" method="post">
+            <button>Delete</button>
+        </form>
+    </div> 
+    <% } %> 
