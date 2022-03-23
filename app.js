@@ -5,9 +5,25 @@ const methodOverride = require('method-override');
 const Joi  = require('joi');
 const catchAsync = require('./ErrorHandlers/catchAsync');
 const ExpressError = require('./ErrorHandlers/ExpressError');
+
+
 const path = require('path');
 const app = express();
 
+//sessionfiles
+const session = require('express-session');
+const sessionconfig = {
+    secret: 'thisisthedummysecretkey',
+    resave : false,
+    saveUninitialized  : true,
+    cookie : {
+        httpOnly : true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    }
+}
+
+app.use(session(sessionconfig));
 app.use(express.static(path.join(__dirname, 'public')))
 app.set('view engine', 'ejs');
 app.set('views',path.join(__dirname,'/views'));
@@ -75,6 +91,7 @@ app.get('/',(req,res)=>{
 })
 
 app.get('/home', async (req,res)=>{
+
     const Pgs = await pgModel.find({});
     res.render('Pg/home',{Pgs});
 })
