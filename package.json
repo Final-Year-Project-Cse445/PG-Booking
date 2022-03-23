@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Final-Year-Project-Cse445/PG-Booking#readme",
   "dependencies": {
+    "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.6",
     "ejs": "^3.1.6",
     "ejs-mate": "^3.0.0",
