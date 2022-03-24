@@ -5,8 +5,7 @@ const methodOverride = require('method-override');
 const Joi  = require('joi');
 const catchAsync = require('./ErrorHandlers/catchAsync');
 const ExpressError = require('./ErrorHandlers/ExpressError');
-
-
+const flash = require('connect-flash');
 const path = require('path');
 const app = express();
 
@@ -22,8 +21,8 @@ const sessionconfig = {
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
 }
-
 app.use(session(sessionconfig));
+app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')))
 app.set('view engine', 'ejs');
 app.set('views',path.join(__dirname,'/views'));
@@ -91,7 +90,6 @@ app.get('/',(req,res)=>{
 })
 
 app.get('/home', async (req,res)=>{
-
     const Pgs = await pgModel.find({});
     res.render('Pg/home',{Pgs});
 })
@@ -100,8 +98,9 @@ app.get('/home/new',(req,res)=>{
     res.render('Pg/new');
 })
 
-app.get('/home/show',(req,res)=>{
-    res.render('Pg/show');
+app.get('/home/show',async (req,res)=>{
+    const Pgs = await pgModel.find({});
+    res.render('Pg/show',{Pgs});
 })
 
 app.post('/home/new',validatePg, catchAsync(async (req,res,next)=>{
@@ -142,6 +141,11 @@ app.get('/signup',(req,res)=>{
 app.get('/contact',(req,res)=>{
     res.render('contact');
 })
+
+app.get('/about',(req,res)=>{
+    res.render('about');
+})
+
 
 app.get('/userGuide',(req,res)=>{
     res.render('Guides/UserGuidelines')
