@@ -6,6 +6,9 @@ const Joi  = require('joi');
 const catchAsync = require('./ErrorHandlers/catchAsync');
 const ExpressError = require('./ErrorHandlers/ExpressError');
 const flash = require('connect-flash');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./models/user');
 const path = require('path');
 const app = express();
 
@@ -27,6 +30,21 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.set('view engine', 'ejs');
 app.set('views',path.join(__dirname,'/views'));
 app.engine('ejs',ejsMate);
+
+//passport authorization middleware 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+//flash_middleware
+app.use((req,res,next) => {
+    res.locals.success = req.flash('success');
+    next();
+})
+
 
 //to parse the body of post requests.
 app.use(express.urlencoded({extended:true}));
@@ -107,6 +125,7 @@ app.post('/home/new',validatePg, catchAsync(async (req,res,next)=>{
     // if(!req.body.pg) throw new ExpresError('Invalid Pg Data',400);
         const Pg = new pgModel(req.body.pg);
         await Pg.save();
+        req.flash('success','Successfully Created a new PG');
         res.redirect(`/home/${Pg._id}`);
 }))
 
@@ -136,6 +155,10 @@ app.get('/login',(req,res)=>{
 
 app.get('/signup',(req,res)=>{
     res.render('signup');
+})
+
+app.post('/register',(req,res)=>{
+    res.send('Signup post');
 })
 
 app.get('/contact',(req,res)=>{
