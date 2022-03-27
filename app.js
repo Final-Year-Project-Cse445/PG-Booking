@@ -42,6 +42,7 @@ passport.deserializeUser(User.deserializeUser());
 //flash_middleware
 app.use((req,res,next) => {
     res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
     next();
 })
 
@@ -57,6 +58,7 @@ const pgModel = require('./models/Pgmodel');
 const Review = require('./models/review');
 
 const res = require('express/lib/response');
+const user = require('./models/user');
 mongoose.connect('mongodb://localhost:27017/test01')
     .then(()=>{ console.log('Database Connected') })
     .catch((error)=>{ 
@@ -130,8 +132,12 @@ app.post('/home/new',validatePg, catchAsync(async (req,res,next)=>{
 }))
 
 app.get('/home/:id', catchAsync(async (req,res)=>{
-    if(!req.params.id) throw new ExpresError('Invalid Pg',404);
+    // if(!req.params.id) throw new ExpresError('Invalid Pg',404);
     const Pg = await pgModel.findById(req.params.id).populate('reviews');
+    if(Pg === null){
+        req.flash('error','Invalid Pg Request');
+        return res.redirect('/home');
+    }
     res.render('Pg/view',{Pg});
 }))
 
@@ -141,11 +147,16 @@ app.post('/home/:id/reviews',reviewvalidate, catchAsync(async (req,res) =>{
     pg.reviews.push(review);
     await review.save();
     await pg.save();
+    req.flash('success', 'Review Added successfully');
     res.redirect(`/home/${pg._id}`);
 }))
 
 app.get('/home/:id/edit',catchAsync(async(req,res)=>{
     const Pg = await pgModel.findById(req.params.id);
+    if(Pg === null){
+        req.flash('error','Invalid Pg Request');
+        return res.redirect('/home');
+    }
     res.render('Pg/edit',{ Pg });
 }))
 
@@ -157,9 +168,13 @@ app.get('/signup',(req,res)=>{
     res.render('signup');
 })
 
-app.post('/register',(req,res)=>{
-    res.send('Signup post');
-})
+app.post('/register',catchAsync( async(req,res)=>{
+    const {email,username,password} = req.body ;
+    const user = new User({email,username});
+    const registeredUser = await User.register(user,password);
+    console.log(registeredUser);
+    res.redirect('/home');
+}))
 
 app.get('/contact',(req,res)=>{
     res.render('contact');
@@ -177,6 +192,7 @@ app.get('/userGuide',(req,res)=>{
 app.put('/home/:id',catchAsync(async (req,res)=>{
     const { id } = req.params;
     const Pg = await pgModel.findByIdAndUpdate(id,{...req.body.pg});
+    req.flash('success','Successfully Updated The Pg');
     res.redirect(`/home/${id}`);
 }))
 
@@ -190,6 +206,7 @@ app.delete('/home/:id/reviews/:reviewId',catchAsync(async (req,res)=>{
     const {id,reviewId} = req.params;
     await pgModel.findByIdAndUpdate(id, {$pull : {reviews : reviewId}});
     await Review.findByIdAndDelete(reviewId);
+    req.flash('success','Review deleted');
     res.redirect(`/home/${id}`);
     
 }))
