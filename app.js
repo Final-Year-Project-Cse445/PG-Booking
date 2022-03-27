@@ -8,6 +8,7 @@ const ExpressError = require('./ErrorHandlers/ExpressError');
 const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const { isLoggedIn } = require('./middleware');
 const User = require('./models/user');
 const path = require('path');
 const app = express();
@@ -41,6 +42,7 @@ passport.deserializeUser(User.deserializeUser());
 
 //flash_middleware
 app.use((req,res,next) => {
+    res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
@@ -114,7 +116,7 @@ app.get('/home', async (req,res)=>{
     res.render('Pg/home',{Pgs});
 })
 
-app.get('/home/new',(req,res)=>{
+app.get('/home/new',isLoggedIn,(req,res)=>{
     res.render('Pg/new');
 })
 
@@ -123,7 +125,7 @@ app.get('/home/show',async (req,res)=>{
     res.render('Pg/show',{Pgs});
 })
 
-app.post('/home/new',validatePg, catchAsync(async (req,res,next)=>{
+app.post('/home/new',isLoggedIn,validatePg, catchAsync(async (req,res,next)=>{
     // if(!req.body.pg) throw new ExpresError('Invalid Pg Data',400);
         const Pg = new pgModel(req.body.pg);
         await Pg.save();
@@ -134,14 +136,14 @@ app.post('/home/new',validatePg, catchAsync(async (req,res,next)=>{
 app.get('/home/:id', catchAsync(async (req,res)=>{
     // if(!req.params.id) throw new ExpresError('Invalid Pg',404);
     const Pg = await pgModel.findById(req.params.id).populate('reviews');
-    if(Pg === null){
+    if(!Pg){
         req.flash('error','Invalid Pg Request');
         return res.redirect('/home');
     }
     res.render('Pg/view',{Pg});
 }))
 
-app.post('/home/:id/reviews',reviewvalidate, catchAsync(async (req,res) =>{
+app.post('/home/:id/reviews',isLoggedIn,reviewvalidate, catchAsync(async (req,res) =>{
     const pg = await pgModel.findById(req.params.id);
     const review = new Review(req.body.review);
     pg.reviews.push(review);
@@ -151,7 +153,7 @@ app.post('/home/:id/reviews',reviewvalidate, catchAsync(async (req,res) =>{
     res.redirect(`/home/${pg._id}`);
 }))
 
-app.get('/home/:id/edit',catchAsync(async(req,res)=>{
+app.get('/home/:id/edit',isLoggedIn,catchAsync(async(req,res)=>{
     const Pg = await pgModel.findById(req.params.id);
     if(Pg === null){
         req.flash('error','Invalid Pg Request');
@@ -160,21 +162,46 @@ app.get('/home/:id/edit',catchAsync(async(req,res)=>{
     res.render('Pg/edit',{ Pg });
 }))
 
+
+//login Routes
 app.get('/login',(req,res)=>{
     res.render('login');
 })
 
+app.post('/login',passport.authenticate('local',{failureFlash:true,failureRedirect:'/login'}),(req,res)=>{
+    req.flash('success','Welcome Back');
+    const redirecturl = req.session.returnto || '/campgrounds';
+    delete req.session.returnto;
+    res.redirect(redirecturl);
+})
+
+//Register Routes
 app.get('/signup',(req,res)=>{
     res.render('signup');
 })
 
 app.post('/register',catchAsync( async(req,res)=>{
-    const {email,username,password} = req.body ;
-    const user = new User({email,username});
-    const registeredUser = await User.register(user,password);
-    console.log(registeredUser);
-    res.redirect('/home');
+    try{
+        const {email,username,password} = req.body ;
+        const user = new User({email,username});
+        const registeredUser = await User.register(user,password);
+        req.login(registeredUser,err =>{
+            req.flash('success','Registered Successfully');
+            res.redirect('/home');
+        })
+    }catch(e){
+        req.flash('error', e.message);
+        res.redirect('/signup');
+    }
+    // console.log(registeredUser);
+    // res.redirect('/home');
 }))
+
+app.get('/logout',(req,res)=>{
+    req.logout();
+    req.flash('success','Successfully Logout');
+    res.redirect('/home');
+})
 
 app.get('/contact',(req,res)=>{
     res.render('contact');
@@ -189,20 +216,20 @@ app.get('/userGuide',(req,res)=>{
     res.render('Guides/UserGuidelines')
 })
 
-app.put('/home/:id',catchAsync(async (req,res)=>{
+app.put('/home/:id',isLoggedIn,catchAsync(async (req,res)=>{
     const { id } = req.params;
     const Pg = await pgModel.findByIdAndUpdate(id,{...req.body.pg});
     req.flash('success','Successfully Updated The Pg');
     res.redirect(`/home/${id}`);
 }))
 
-app.delete('/home/:id',catchAsync(async (req,res)=>{
+app.delete('/home/:id',isLoggedIn,catchAsync(async (req,res)=>{
     const { id } = req.params;
     await pgModel.findByIdAndDelete(id);
     res.redirect('/home');
 }))
 
-app.delete('/home/:id/reviews/:reviewId',catchAsync(async (req,res)=>{
+app.delete('/home/:id/reviews/:reviewId',isLoggedIn,catchAsync(async (req,res)=>{
     const {id,reviewId} = req.params;
     await pgModel.findByIdAndUpdate(id, {$pull : {reviews : reviewId}});
     await Review.findByIdAndDelete(reviewId);
@@ -223,6 +250,7 @@ app.use((err, req, res,next)=>{
     if(!err.message) err.message = 'Something went wrong';
     res.status(statusCode).render('Error' , {err})
 })
+
 
 
 app.listen(3000,()=>{
