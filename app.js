@@ -1,3 +1,4 @@
+if(process.env.NODE_ENV !== 'production'){require('dotenv').config();}
 const express = require('express');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
@@ -7,9 +8,10 @@ const catchAsync = require('./ErrorHandlers/catchAsync');
 const ExpressError = require('./ErrorHandlers/ExpressError');
 const flash = require('connect-flash');
 const passport = require('passport');
+const { storage } = require('./Cloudinary');
 const LocalStrategy = require('passport-local');
-const multer = require('multer');
-const upload = multer({dest:'uploads/'});
+const multer  = require('multer');
+const upload = multer({ storage });
 const { isLoggedIn } = require('./middleware');
 const User = require('./models/user');
 const path = require('path');
@@ -103,7 +105,6 @@ const validatePg = (req,res,next)=>{
 
 //JOI_Review Validation
 const reviewvalidate = (req,res,next) => {
-    console.log(req.body);
     const validatereview = Joi.object({
         review : Joi.object({
             body : Joi.string().required(),
@@ -138,15 +139,19 @@ app.get('/home/show',async (req,res)=>{
     res.render('Pg/show',{Pgs});
 })
 
-app.post('/home/new',isLoggedIn,validatePg, catchAsync(async (req,res,next)=>{
+app.post('/home/new',upload.single('pg[image]'),isLoggedIn, catchAsync(async (req,res,next)=>{
     // if(!req.body.pg) throw new ExpresError('Invalid Pg Data',400);
         const Pg = new pgModel(req.body.pg);
         Pg.author = req.user._id;
         await Pg.save();
-        console.log(req.body);
+        console.log(req.body,req.file);
         req.flash('success','Successfully Created a new PG');
         res.redirect(`/home/${Pg._id}`);
 }))
+
+// app.post('/home/new',upload.single('pg[image]'), (req, res)=>{
+//     res.send(req.body,req.file);
+// })
 
 app.get('/home/:id', catchAsync(async (req,res)=>{
     // if(!req.params.id) throw new ExpresError('Invalid Pg',404);
