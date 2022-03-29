@@ -8,6 +8,8 @@ const ExpressError = require('./ErrorHandlers/ExpressError');
 const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const multer = require('multer');
+const upload = multer({dest:'uploads/'});
 const { isLoggedIn } = require('./middleware');
 const User = require('./models/user');
 const path = require('path');
@@ -101,6 +103,7 @@ const validatePg = (req,res,next)=>{
 
 //JOI_Review Validation
 const reviewvalidate = (req,res,next) => {
+    console.log(req.body);
     const validatereview = Joi.object({
         review : Joi.object({
             body : Joi.string().required(),
@@ -140,6 +143,7 @@ app.post('/home/new',isLoggedIn,validatePg, catchAsync(async (req,res,next)=>{
         const Pg = new pgModel(req.body.pg);
         Pg.author = req.user._id;
         await Pg.save();
+        console.log(req.body);
         req.flash('success','Successfully Created a new PG');
         res.redirect(`/home/${Pg._id}`);
 }))
