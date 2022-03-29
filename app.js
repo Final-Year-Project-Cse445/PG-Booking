@@ -48,6 +48,15 @@ app.use((req,res,next) => {
     next();
 })
 
+const isAuthor = async(req, res, next) =>{
+    const { id } = req.params;
+    const pg = await pgModel.findById(id);
+    if(!pg.author.equals(req.user._id)){
+        req.flash('error','Permission denied');
+        return res.redirect(`/home/${id}`);
+    }
+    next();
+}
 
 //to parse the body of post requests.
 app.use(express.urlencoded({extended:true}));
@@ -61,6 +70,7 @@ const Review = require('./models/review');
 
 const res = require('express/lib/response');
 const user = require('./models/user');
+const Pgmodel = require('./models/Pgmodel');
 mongoose.connect('mongodb://localhost:27017/test01')
     .then(()=>{ console.log('Database Connected') })
     .catch((error)=>{ 
@@ -128,6 +138,7 @@ app.get('/home/show',async (req,res)=>{
 app.post('/home/new',isLoggedIn,validatePg, catchAsync(async (req,res,next)=>{
     // if(!req.body.pg) throw new ExpresError('Invalid Pg Data',400);
         const Pg = new pgModel(req.body.pg);
+        Pg.author = req.user._id;
         await Pg.save();
         req.flash('success','Successfully Created a new PG');
         res.redirect(`/home/${Pg._id}`);
@@ -135,7 +146,7 @@ app.post('/home/new',isLoggedIn,validatePg, catchAsync(async (req,res,next)=>{
 
 app.get('/home/:id', catchAsync(async (req,res)=>{
     // if(!req.params.id) throw new ExpresError('Invalid Pg',404);
-    const Pg = await pgModel.findById(req.params.id).populate('reviews');
+    const Pg = await pgModel.findById(req.params.id).populate('reviews').populate('author');
     if(!Pg){
         req.flash('error','Invalid Pg Request');
         return res.redirect('/home');
@@ -146,6 +157,7 @@ app.get('/home/:id', catchAsync(async (req,res)=>{
 app.post('/home/:id/reviews',isLoggedIn,reviewvalidate, catchAsync(async (req,res) =>{
     const pg = await pgModel.findById(req.params.id);
     const review = new Review(req.body.review);
+    review.author = req.user._id;
     pg.reviews.push(review);
     await review.save();
     await pg.save();
@@ -153,12 +165,18 @@ app.post('/home/:id/reviews',isLoggedIn,reviewvalidate, catchAsync(async (req,re
     res.redirect(`/home/${pg._id}`);
 }))
 
-app.get('/home/:id/edit',isLoggedIn,catchAsync(async(req,res)=>{
+app.get('/home/:id/edit',isLoggedIn,isAuthor, catchAsync(async(req,res)=>{
+    const { id } = req.params;
     const Pg = await pgModel.findById(req.params.id);
-    if(Pg === null){
+    // const pg = await pgmodel.findById(id);
+    if(!Pg){
         req.flash('error','Invalid Pg Request');
         return res.redirect('/home');
     }
+    // if(!Pg.author.equals(req.user._id)){
+    //     req.flash('error','Permission denied');
+    //     return res.redirect(`/home/${id}`);
+    // }
     res.render('Pg/edit',{ Pg });
 }))
 
@@ -170,7 +188,7 @@ app.get('/login',(req,res)=>{
 
 app.post('/login',passport.authenticate('local',{failureFlash:true,failureRedirect:'/login'}),(req,res)=>{
     req.flash('success','Welcome Back');
-    const redirecturl = req.session.returnto || '/campgrounds';
+    const redirecturl = req.session.returnto || '/home';
     delete req.session.returnto;
     res.redirect(redirecturl);
 })
@@ -216,16 +234,22 @@ app.get('/userGuide',(req,res)=>{
     res.render('Guides/UserGuidelines')
 })
 
-app.put('/home/:id',isLoggedIn,catchAsync(async (req,res)=>{
+app.put('/home/:id',isLoggedIn,isAuthor, catchAsync(async (req,res)=>{
     const { id } = req.params;
+    // const pg = await pgModel.findById(id);
+    // if(!pg.author.equals(req.user._id)){
+    //     req.flash('error','Permission denied');
+    //     return res.redirect(`/home/${id}`);
+    // }
     const Pg = await pgModel.findByIdAndUpdate(id,{...req.body.pg});
     req.flash('success','Successfully Updated The Pg');
     res.redirect(`/home/${id}`);
 }))
 
-app.delete('/home/:id',isLoggedIn,catchAsync(async (req,res)=>{
+app.delete('/home/:id',isLoggedIn,isAuthor,catchAsync(async (req,res)=>{
     const { id } = req.params;
     await pgModel.findByIdAndDelete(id);
+    req.flash('success','Deleted SuccessFully');
     res.redirect('/home');
 }))
 

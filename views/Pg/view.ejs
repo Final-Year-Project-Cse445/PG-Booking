@@ -9,12 +9,15 @@
         <h2>location : <%= Pg.location %> </h2>
         <h2>Rating : <%= Pg.rating %> </h2>
         <br>
+        <% if(currentUser && Pg.author.equals(currentUser._id)) { %> 
         <a href="/home/<%=Pg._id %>/edit">Edit</a>
         <form action="/home/<%= Pg._id %>?_method=DELETE" method="post">
             <button>Delete</button>
         </form>
     </div>
+    <% } %> 
     <h1>Add Review </h1>
+    <% if(currentUser){ %> 
     <form action="/home/<%= Pg._id %>/reviews" method="post">
         <div>
             <label class="form-label" for="Rating">Rating</label>
@@ -26,6 +29,7 @@
         </div>
         <button>Submit</button>
     </form>
+    <% } %> 
     <br>
     <h1>User Reviews</h1>
     <% for(let review of Pg.reviews){ %>
