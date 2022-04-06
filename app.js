@@ -8,7 +8,8 @@ const catchAsync = require('./ErrorHandlers/catchAsync');
 const ExpressError = require('./ErrorHandlers/ExpressError');
 const flash = require('connect-flash');
 const passport = require('passport');
-const { storage } = require('./Cloudinary');
+const { storage, cloudinary } = require('./Cloudinary');
+// const Cloudinary = require('cloudinary').v2;
 const LocalStrategy = require('passport-local');
 const multer  = require('multer');
 const upload = multer({ storage });
@@ -88,11 +89,12 @@ const validatePg = (req,res,next)=>{
         pg : Joi.object({
             title : Joi.string().required(),
             price : Joi.number().required().min(0), 
-            image : Joi.string().required(),
+            // image : Joi.string().required(),
             location : Joi.string().required(),
             description : Joi.string().required(),
             rating : Joi.number().required().max(5)
-        }).required()
+        }).required(),
+        deleteImages : Joi.array()
     })
     const { error } = Pgvalidate.validate(req.body);
     if(error){
@@ -139,12 +141,13 @@ app.get('/home/show',async (req,res)=>{
     res.render('Pg/show',{Pgs});
 })
 
-app.post('/home/new',upload.single('pg[image]'),isLoggedIn, catchAsync(async (req,res,next)=>{
+app.post('/home/new',isLoggedIn,upload.array('pg[image]'),validatePg,catchAsync(async (req,res,next)=>{
     // if(!req.body.pg) throw new ExpresError('Invalid Pg Data',400);
         const Pg = new pgModel(req.body.pg);
+        Pg.image = req.files.map(f=>({url:f.path,filename :f.filename}));
         Pg.author = req.user._id;
         await Pg.save();
-        console.log(req.body,req.file);
+        console.log(Pg);
         req.flash('success','Successfully Created a new PG');
         res.redirect(`/home/${Pg._id}`);
 }))
@@ -243,7 +246,7 @@ app.get('/userGuide',(req,res)=>{
     res.render('Guides/UserGuidelines')
 })
 
-app.put('/home/:id',isLoggedIn,isAuthor, catchAsync(async (req,res)=>{
+app.put('/home/:id',isLoggedIn,isAuthor,upload.array('pg[image]'),validatePg, catchAsync(async (req,res)=>{
     const { id } = req.params;
     // const pg = await pgModel.findById(id);
     // if(!pg.author.equals(req.user._id)){
@@ -251,6 +254,16 @@ app.put('/home/:id',isLoggedIn,isAuthor, catchAsync(async (req,res)=>{
     //     return res.redirect(`/home/${id}`);
     // }
     const Pg = await pgModel.findByIdAndUpdate(id,{...req.body.pg});
+    const imgs = req.files.map(f=>({url:f.path,filename :f.filename}));
+    Pg.image.push(...imgs);
+    await Pg.save();
+    console.log(req.body.deleteImages);
+    if(req.body.deleteImages){
+        for(let filename of req.body.deleteImages){
+            await cloudinary.uploader.destroy(filename);
+        }
+        await Pg.updateOne({$pull:{image:{filename:{$in:req.body.deleteImages}}}})
+    }
     req.flash('success','Successfully Updated The Pg');
     res.redirect(`/home/${id}`);
 }))

@@ -4,7 +4,9 @@
     <div>
         <h2>Id : <%= Pg._id %> </h2>
         <h2>Title : <%= Pg.title %> </h2>
-        <img src="<%= Pg.image %> " alt="" srcset="">
+        <% for(let img of Pg.image) {%> 
+            <img src="<%= img.url %> " alt="" srcset="">
+            <% } %> 
         <h2>price : <%= Pg.price %> </h2>
         <h2>description : <%= Pg.description %> </h2>
         <h2>location : <%= Pg.location %> </h2>

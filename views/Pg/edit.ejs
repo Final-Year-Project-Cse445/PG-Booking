@@ -83,7 +83,7 @@
 
   <!-- your code -->
   <h1>Your Code</h1>
-  <form action="/home/<%= Pg._id %>?_method=PUT " method="post">
+  <!-- <form action="/home/<%= Pg._id %>?_method=PUT " method="post">
     <div>
         <label for="title">Title</label>
         <input type="text" id="title" name="pg[title]" value="<%= Pg.title %> ">
@@ -105,7 +105,46 @@
         <input type="text" id="rating" name="pg[rating]" placeholder=""  value="<%= Pg.rating %> ">
     </div>
     <button>Update</button>
+</form> -->
+
+<form action="/home/<%= Pg._id %>?_method=PUT " method="post" enctype="multipart/form-data">
+  <div>
+      <label for="title">Title</label>
+      <input type="text" id="title" name="pg[title]" placeholder="" value="<%= Pg.title %>" required>
+  </div>
+  <div>
+      <label for="image">Image</label>
+      <input type="file" id="image" name="pg[image]" placeholder=""  multiple >
+  </div>
+  <div>
+      <label for="price">price</label>
+      <input type="text" id="price" name="pg[price]" placeholder="" value="<%= Pg.price %>" required>
+  </div>
+  <div>
+      <label for="description">description</label>
+      <input type="text" id="description" name="pg[description]" placeholder="" value="<%= Pg.description %>" required>
+  </div>
+  <div>
+      <label for="location">location</label>
+      <input type="text" id="location" name="pg[location]" placeholder="" value="<%= Pg.location %>" required>
+  </div>
+  <div>
+      <label for="rating">rating</label>
+      <input type="text" id="rating" name="pg[rating]" placeholder="" value="<%= Pg.rating %>" required>
+  </div>
+  <button>Add</button>
+  <div>
+    <% Pg.image.forEach(function(img,i) { %>
+      <img src="<%= img.url %> "  class="img-thumbnail" alt="" srcset=""> 
+      <div class="form-check-inline">
+          <input type="checkbox" id="image-<%= i %>" name="deleteImages[]" value="<%= img.filename %>" >
+      </div>
+      <label for="image-<%= i %> ">Delete ?</label>
+      <% }) %> 
+  </div>
 </form>
+
+
 
 </main>
 

@@ -5,7 +5,12 @@ const Schema = mongoose.Schema;
 const pgSchema = new Schema({
     title : String,
     price : Number,
-    image : String,
+    image : [
+        {
+            url : String,
+            filename : String
+        }
+     ],
     description : String,
     location : String,
     rating : String,

@@ -1,5 +1,6 @@
 <% layout('layout/boilerplate') %> 
-<h1>New page.</h1>
+<link rel="stylesheet" href="/css/newpage.css">
+<h1>New page</h1>
 
 <div>
     <form action="/home/new" method="post" enctype="multipart/form-data">
@@ -9,7 +10,7 @@
         </div>
         <div>
             <label for="image">Image</label>
-            <input type="file" id="image" name="pg[image]" placeholder="" required>
+            <input type="file" id="image" name="pg[image]" placeholder=""  multiple required>
         </div>
         <div>
             <label for="price">price</label>
@@ -32,3 +33,6 @@
 </div>
 
 
+
+
+<script src="js/navbar.js"></script>

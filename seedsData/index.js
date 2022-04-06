@@ -20,7 +20,12 @@ const seedDB = async ()=>{
             description: `${pgs[i].description}`,
             location: `${pgs[i].location}`, 
             rating: `${pgs[i].rating}`,
-            image : `https://images.unsplash.com/photo-1646265849745-39ddf45677c0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY0NzAwMjI2MQ&ixlib=rb-1.2.1&q=80&w=1080`,
+            image : [
+                {
+                    url: 'https://res.cloudinary.com/dalt2i8bs/image/upload/v1649246713/GMP/atvvyhmo5uogkk3hkwit.jpg',
+                    filename: 'GMP/atvvyhmo5uogkk3hkwit',
+                  }
+            ]
         });
         await Pg.save();
     }
