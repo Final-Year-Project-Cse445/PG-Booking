@@ -1,5 +1,6 @@
 <% layout('layout/boilerplate') %> 
 <link rel="stylesheet" href="/css/newpage.css">
+<link rel="stylesheet" href="newform.css">
 <h1>New page</h1>
 
 <div>
@@ -31,6 +32,65 @@
         <button>Add</button>
     </form>
 </div>
+
+
+<div class="container  mt-4 " style="background-color: whitesmoke;color:black;border-radius: 10px; box-shadow: 10px 5px 10px 5px whitesmoke;
+ border: 4px solid gray;">
+    <div class="row mr-2" >
+        <div class="col-md-4"> 
+            <div class="row"  style="width: auto; height: 300px;">
+                <div class="col-12 mt-4 mb-4 text-primary ">
+                       <div class="card" style="border: 3px dashed green;">
+                            <div class="card-header"><img src="./images/test04.jpg" width="100px" height="100px"  style="margin-left: 80px; margin-top: 80;">
+                                <h3 style="color: green;"> + Choose The Best Pg</h3>
+                                <input type="file" id="myFile" name="filename">
+                       </div>
+                </div>
+                <div class="col-12">
+                    <h5>Feel At Your Home </h5>
+                    <p>Select The Best Pg At Comfort Zone</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 mt-4 mb-4 " style="border-radius: 20px;color:black;background-color: white">
+            <form>
+                <div class="form-group mt-2" style="margin-right: 10px;">
+                    <label for="title">Title: </label>
+                    <input type="text" class="form-control" id="title" placeholder="Enter the title" required="">
+                  </div>
+               
+                  <div class="form-group">
+                    <label for="pric">Price : </label>
+                    <input type="text" class="form-control" id="price" placeholder="Enter the price" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="description">Description: </label>
+                   
+                    <textarea name="description" id="description"placeholder="Give Description what you need more From us..." required
+                    cols="10" rows="5" style="width: 100%; border-radius: 10px;text-indent: 15px;"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="location">Location: </label>
+                    
+                    <textarea name="location" id="location"placeholder="Address, location, Pincode..." required
+                    cols="10" rows="5" style="width: 100%; border-radius: 10px;text-indent: 15px;"></textarea>
+                  </div>
+                
+                  
+                  <div class="form-group">
+                    <label for="rating">Give Rating To Us: </label>
+                    <input type="text" class="form-control" id="rating" placeholder="Give rating to us !..." required>
+                  </div>
+                  
+                  
+                <button type="submit" class="btn btn-primary mb-4">Submit</button>
+              </form>
+        </div>
+
+    </div>
+  </div>
+
+
 
 
 
