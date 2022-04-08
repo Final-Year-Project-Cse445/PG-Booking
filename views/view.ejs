@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/view_styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+        integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark justify-content-center">
+        <div class="container">
+            <a href="/" class="navbar-brand d-flex w-50 me-auto">GMP</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsingNavbar3">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
+                <ul class="navbar-nav w-100 justify-content-center">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home/show">PG</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav ms-auto w-100 justify-content-end">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/signup">Signup</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Admin </a>
+                        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarScrollingDropdown">
+                            <li><a class="dropdown-item" href="/home/new">Add Pg</a></li>
+                            <li><a class="dropdown-item" href="#">Edit</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="/userGuide">User GuideLines</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="containers">
+        <div id="img-section">
+            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="/images/edelle-bruton-PJNO2sLlbB8-unsplash.jpg" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/images/mark-champs-Id2IIl1jOB0-unsplash.jpg" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="/images/adam-winger-VGs8z60yT2c-unsplash.jpg" class="d-block w-100" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            
+            <!-- <div class="s-imgs">
+
+            </div> -->
+        </div>
+        <div id="desc-section">
+            <div class="title-pg">
+                <h5>id:235901u4521</h5>
+                <h3>Title:Jazzy properties</h3>
+            </div>
+            <h3>Price: $100</h3>
+            <div class="desc">
+                <h5>Description</h5>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati est laborum cum, officia debitis
+                    tempore modi consectetur commodi quae beatae quos explicabo perferendis doloribus impedit labore
+                    harum culpa ducimus. Saepe, earum magni, dignissimos illo nisi inventore praesentium, minima quia
+                    quidem expedita suscipit veniam numquam vero omnis! Distinctio modi ipsam officiis provident.
+                    Praesentium eum doloribus dolorem inventore omnis doloremque vitae ipsa assumenda natus, aliquam
+                    quos</p>
+                <ul>
+                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
+                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
+                </ul>
+            </div>
+            <h5>Location:Lpu Maheru, Phagwara</h5>
+            <h5>Rating: 3.5</h5>
+            <div class="btns">
+                <button id="edit" class="btn btn-primary btn-lg">Edit</button>
+                <button id="delete" class="btn btn-danger btn-lg">Delete</button>
+            </div>
+
+        </div>
+        <div id="review-section">
+            <div class="rating">
+                <h2>Add Reviews</h2>
+                <form action="">
+                    <div class="set-rating">
+                        <label for="">Rating</label>
+                        <div class="ranges">
+                        <input type="range" name="" id="rangeVal" value="1" min="1" max="5">
+                        <h5 id ="range-txt">1</h5>
+                    </div>
+                    </div>
+                    <div class="add-review">
+                        <label for="">Review</label>
+                        <textarea name="" id="" cols="30" rows="4" style="resize: none;"></textarea>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </form>
+            </div>
+            <!-- <div class="rev-btns">
+                <button id="all" class="btn btn-secondary">All (230)</button>
+                <button id="rev-imgs" class="btn btn-secondary"><i class="fa-solid fa-image"></i> 23</button>
+                <button id="comments" class="btn btn-secondary"><i class="fa-solid fa-comment"></i> 23</button>
+                <button id="5stars" class="btn btn-warning"><i class="fa-regular fa-star"></i><i
+                        class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i
+                        class="fa-regular fa-star"></i> 2123</button>
+            </div> -->
+            <div class="reviews">
+                <div class="review">
+                    <img src="https://play-lh.googleusercontent.com/ByaDki7oQ9RZJV2XRVgRUCAHmM6aqApy4TLAiDx4MG2BVtr2ijknHf2taM76CjFBpdc"
+                        alt="">
+                    <div class="user-rev">
+                        <div class="review-i">
+                            <p>⭐⭐⭐⭐</p>
+                            <p>Lorem, ipsum.</p>
+                        </div>
+                        <div class="del">
+                            <button class="btn btn-danger">Delete</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="review">
+                    <img src="https://sm.mashable.com/t/mashable_in/feature/3/368-episod/368-episodes-later-kakashis-face-revealed-in-naruto-shippude_vrrk.1248.jpg"
+                        alt="">
+                    <div class="user-rev">
+                        <div class="review-i">
+                            <p>⭐⭐⭐⭐</p>
+                            <p>Lorem, ipsum.</p>
+                        </div>
+                        <div class="del">
+                            <button class="btn btn-danger">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="sim-items">
+            <p>Similar items:</p>
+            <div class="sim-imgs">
+                <img src="/images/adam-winger-VGs8z60yT2c-unsplash.jpg" alt="">
+                <img src="/images/edelle-bruton-PJNO2sLlbB8-unsplash.jpg" alt="">
+                <img src="/images/mark-champs-Id2IIl1jOB0-unsplash.jpg" alt="">
+                <img src="/images/mky-moody-AUF6Gl4wwzA-unsplash.jpg" alt="">
+            </div>
+        </div>
+    </div>
+    <script src="https://kit.fontawesome.com/d489ff2569.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+    <script src="/js/viewfile.js"></script>
+</body>
+
+</html>

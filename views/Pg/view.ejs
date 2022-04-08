@@ -1,0 +1,62 @@
+<% layout('layout/boilerplate') %> 
+<link rel="stylesheet" href="/starcss/stars.css">
+    <h1>View Page</h1>
+    <div>
+        <h2>Id : <%= Pg._id %> </h2>
+        <h2>Title : <%= Pg.title %> </h2>
+        <% for(let img of Pg.image) {%> 
+            <img src="<%= img.url %> " alt="" srcset="">
+            <% } %> 
+        <h2>price : <%= Pg.price %> </h2>
+        <h2>description : <%= Pg.description %> </h2>
+        <h2>location : <%= Pg.location %> </h2>
+        <h2>Rating : <%= Pg.rating %> </h2>
+        <br>
+        <% if(currentUser && Pg.author.equals(currentUser._id)) { %> 
+        <a href="/home/<%=Pg._id %>/edit">Edit</a>
+        <form action="/home/<%= Pg._id %>?_method=DELETE" method="post">
+            <button>Delete</button>
+        </form>
+    </div>
+    <% } %> 
+    <h1>Add Review </h1>
+    <% if(currentUser){ %> 
+    <form action="/home/<%= Pg._id %>/reviews" method="post">
+        <!-- <div>
+            <label class="form-label" for="Rating">Rating</label>
+            <input type="range" name="review[rating]" id="Rating" min="1" max="5" required></input>
+        </div> -->
+        <fieldset class="starability-basic">
+            <legend>First rating:</legend>
+            <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+            <input type="radio" id="second-rate1" name="review[rating]" value="1" />
+            <label for="second-rate1" title="Terrible">1 star</label>
+            <input type="radio" id="second-rate2" name="review[rating]" value="2" />
+            <label for="second-rate2" title="Not good">2 stars</label>
+            <input type="radio" id="second-rate3" name="review[rating]" value="3" />
+            <label for="second-rate3" title="Average">3 stars</label>
+            <input type="radio" id="second-rate4" name="review[rating]" value="4" />
+            <label for="second-rate4" title="Very good">4 stars</label>
+            <input type="radio" id="second-rate5" name="review[rating]" value="5" />
+            <label for="second-rate5" title="Amazing">5 stars</label>
+          </fieldset>
+        <div>
+            <label class="form-label" for="body">Review</label>
+            <textarea name="review[body]" id="body" cols="30" rows="3" required></textarea>
+        </div>
+        <button>Submit</button>
+    </form>
+    <% } %> 
+    <br>
+    <h1>User Reviews</h1>
+    <% for(let review of Pg.reviews){ %>
+    <div>
+        <p>Rating <%= review.rating %> </p>
+        <p class="starability-result" data-rating="<%= review.rating %>">
+          </p>
+        <p>Review : <%= review.body %> </p>
+        <form action="/home/<%= Pg._id %>/reviews/<%= review._id %>?_method=DELETE" method="post">
+            <button>Delete</button>
+        </form>
+    </div> 
+    <% } %> 

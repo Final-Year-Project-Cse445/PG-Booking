@@ -1,0 +1,37 @@
+{
+  "name": "pg-booking",
+  "version": "1.0.0",
+  "description": "A Place For Students to Book Room at affordable in their Local Area. Specifically Designed for Law Gate PGs.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Final-Year-Project-Cse445/PG-Booking.git"
+  },
+  "author": "Biseswar,Sourav,Sanjay,Rudra,Akash",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Final-Year-Project-Cse445/PG-Booking/issues"
+  },
+  "homepage": "https://github.com/Final-Year-Project-Cse445/PG-Booking#readme",
+  "dependencies": {
+    "cloudinary": "^1.29.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.0",
+    "ejs": "^3.1.6",
+    "ejs-mate": "^3.0.0",
+    "express": "^4.17.2",
+    "express-session": "^1.17.2",
+    "joi": "^17.6.0",
+    "method-override": "^3.0.0",
+    "mongoose": "^6.2.1",
+    "multer": "^1.4.4",
+    "multer-storage-cloudinary": "^4.0.0",
+    "passport": "^0.5.2",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^7.0.0"
+  }
+}
