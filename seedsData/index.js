@@ -22,7 +22,7 @@ const seedDB = async ()=>{
             rating: `${pgs[i].rating}`,
             image : [
                 {
-                    url: 'https://res.cloudinary.com/dalt2i8bs/image/upload/v1649246713/GMP/atvvyhmo5uogkk3hkwit.jpg',
+                    url: 'https://res.cloudinary.com/dalt2i8bs/image/upload/v1649510082/GMP/sh8bxljfza4nuwfqoinb.jpg',
                     filename: 'GMP/atvvyhmo5uogkk3hkwit',
                   }
             ]
