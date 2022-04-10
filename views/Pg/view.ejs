@@ -1,5 +1,144 @@
 <% layout('layout/boilerplate') %> 
 <link rel="stylesheet" href="/starcss/stars.css">
+<link rel="stylesheet" href="/css/view_style.css">
+
+  
+    <div class="containers">
+        <div id="img-section">
+            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <%Pg.image.forEach((img,i)=>{ %>
+                            <div class="carousel-item <%=i===0?'active':''%>">
+                              <img src="<%= img.url %>" class="d-block w-100" alt="">
+                            </div>
+                    <% }) %> 
+                </div>
+                <% if(Pg.image.length > 1) {%>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                <% } %>
+            </div>
+            
+        </div>
+        <div id="desc-section">
+            <div class="title-pg">
+                <h5>Available Features</h5>
+                <h3><%= Pg.title %></h3>
+            </div>
+            <h3>price : <%= Pg.price %></h3>
+            <div class="desc">
+                <h5>Description</h5>
+                <p>: <%= Pg.description %></p>
+                <ul>
+                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
+                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
+                </ul>
+            </div>
+            <h5>Location : <%= Pg.location %></h5>
+            <h5>Rating: <%= Pg.rating %></h5>
+            <div class="btns">
+                <a href="/home/<%=Pg._id %>/edit" id="edit" class="btn btn-primary btn-lg">Edit</a>
+                <!-- <button id="edit" class="btn btn-primary btn-lg">Edit</button> -->
+                <!-- <button id="delete" class="btn btn-danger btn-lg">Delete</button> -->
+                <form action="/home/<%= Pg._id %>?_method=DELETE" method="post">
+                    <button id="delete" class="btn btn-danger btn-lg">Delete</button>
+                </form>
+            </div>
+
+        </div>
+        <div id="review-section">
+            <div class="rating">
+                <h2>Add Reviews</h2>
+                <% if(currentUser){ %> 
+                    <form action="/home/<%= Pg._id %>/reviews" method="post">
+                        <div class="set-rating">
+                            <label for="">Rating</label>
+                            <div class="ranges">
+                            <input type="range" name="review[rating]" id="rangeVal" value="1" min="1" max="5">
+                            <!-- <h5 id ="range-txt">1</h5> -->
+                        </div>
+                        </div>
+                        <div class="add-review">
+                            <label for="body">Review</label>
+                            <textarea name="review[body]" id="body" cols="30" rows="4" style="resize: none;" required></textarea>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                    </form>
+                    <% } %> 
+            </div>
+            <!-- <div class="rev-btns">
+                <button id="all" class="btn btn-secondary">All (230)</button>
+                <button id="rev-imgs" class="btn btn-secondary"><i class="fa-solid fa-image"></i> 23</button>
+                <button id="comments" class="btn btn-secondary"><i class="fa-solid fa-comment"></i> 23</button>
+                <button id="5stars" class="btn btn-warning"><i class="fa-regular fa-star"></i><i
+                        class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i
+                        class="fa-regular fa-star"></i> 2123</button>
+            </div> -->
+            <div class="reviews">
+                <% for(let review of Pg.reviews){ %>
+                <div class="review">
+                    <img src="https://play-lh.googleusercontent.com/ByaDki7oQ9RZJV2XRVgRUCAHmM6aqApy4TLAiDx4MG2BVtr2ijknHf2taM76CjFBpdc"
+                        alt="">
+                    <div class="user-rev">
+                        <div class="review-i">
+                            <p>Rating <%= review.rating %> </p>
+                            <p class="starability-result" data-rating="<%= review.rating %>">
+                            <p>Review : <%= review.body %> </p>
+                        </div>
+                        <div class="del">
+                            <!-- <button class="btn btn-danger">Delete</button> -->
+                            <form action="/home/<%= Pg._id %>/reviews/<%= review._id %>?_method=DELETE" method="post">
+                                <button class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <% } %> 
+                <!-- <div class="review">
+                    <img src="https://sm.mashable.com/t/mashable_in/feature/3/368-episod/368-episodes-later-kakashis-face-revealed-in-naruto-shippude_vrrk.1248.jpg"
+                        alt="">
+                    <div class="user-rev">
+                        <div class="review-i">
+                            <p>⭐⭐⭐⭐</p>
+                            <p>Lorem, ipsum.</p>
+                        </div>
+                        <div class="del">
+                            <button class="btn btn-danger">Delete</button>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        <div id="sim-items">
+            <p>Similar items:</p>
+            <div class="sim-imgs">
+                <% for(let img of Pg.image) {%> 
+                    <img src="<%= img.url %>" alt="">
+                    <% } %> 
+                <!-- <img src="/images/adam-winger-VGs8z60yT2c-unsplash.jpg" alt="">
+                <img src="/images/edelle-bruton-PJNO2sLlbB8-unsplash.jpg" alt="">
+                <img src="/images/mark-champs-Id2IIl1jOB0-unsplash.jpg" alt="">
+                <img src="/images/mky-moody-AUF6Gl4wwzA-unsplash.jpg" alt=""> -->
+            </div>
+        </div>
+    </div>
+    <script src="https://kit.fontawesome.com/d489ff2569.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+    <script src="/js/viewfile.js"></script>
+
+
+
+    <!--  -->
+
+
     <h1>View Page</h1>
     <div>
         <h2>Id : <%= Pg._id %> </h2>
@@ -17,16 +156,16 @@
         <form action="/home/<%= Pg._id %>?_method=DELETE" method="post">
             <button>Delete</button>
         </form>
+        <% } %> 
     </div>
-    <% } %> 
     <h1>Add Review </h1>
     <% if(currentUser){ %> 
-    <form action="/home/<%= Pg._id %>/reviews" method="post">
+    <!-- <form action="/home/<%= Pg._id %>/reviews" method="post"> -->
         <!-- <div>
             <label class="form-label" for="Rating">Rating</label>
             <input type="range" name="review[rating]" id="Rating" min="1" max="5" required></input>
         </div> -->
-        <fieldset class="starability-basic">
+        <!-- <fieldset class="starability-basic">
             <legend>First rating:</legend>
             <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
             <input type="radio" id="second-rate1" name="review[rating]" value="1" />
@@ -40,11 +179,11 @@
             <input type="radio" id="second-rate5" name="review[rating]" value="5" />
             <label for="second-rate5" title="Amazing">5 stars</label>
           </fieldset>
-        <div>
-            <label class="form-label" for="body">Review</label>
+        <div> -->
+            <!-- <label class="form-label" for="body">Review</label>
             <textarea name="review[body]" id="body" cols="30" rows="3" required></textarea>
         </div>
-        <button>Submit</button>
+        <button>Submit</button> -->
     </form>
     <% } %> 
     <br>

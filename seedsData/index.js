@@ -14,7 +14,7 @@ const seedDB = async ()=>{
     await pg.deleteMany({});
     for(let i=0; i<pgs.length; i++){
         const Pg = new pg({
-            author: '62406b5d011143e12dcf6358',
+            author: '6251868b713bdbbed9c23409',
             title: `${pgs[i].title}`,
             price: `${pgs[i].price}`,
             description: `${pgs[i].description}`,
