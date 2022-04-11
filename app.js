@@ -147,7 +147,7 @@ app.post('/home/new',isLoggedIn,upload.array('pg[image]'),validatePg,catchAsync(
         Pg.image = req.files.map(f=>({url:f.path,filename :f.filename}));
         Pg.author = req.user._id;
         await Pg.save();
-        console.log(Pg);
+        // console.log(Pg);
         req.flash('success','Successfully Created a new PG');
         res.redirect(`/home/${Pg._id}`);
 }))
