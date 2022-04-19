@@ -41,11 +41,12 @@
             <h5>Location : <%= Pg.location %></h5>
             <h5>Rating: <%= Pg.rating %></h5>
             <div class="btns">
-                <a href="/home/<%=Pg._id %>/edit" id="edit" class="btn btn-primary btn-lg">Edit</a>
+                
                 <!-- <button id="edit" class="btn btn-primary btn-lg">Edit</button> -->
                 <!-- <button id="delete" class="btn btn-danger btn-lg">Delete</button> -->
                 <form action="/home/<%= Pg._id %>?_method=DELETE" method="post">
-                    <button id="delete" class="btn btn-danger btn-lg">Delete</button>
+                    <a href="/home/<%=Pg._id %>/edit" id="edit" class="btn btn-primary btn-lg">Edit</a>
+                    <a id="delete" class="btn btn-danger btn-lg">Delete</a>
                 </form>
             </div>
 
