@@ -269,6 +269,7 @@ app.put('/home/:id',isLoggedIn,isAuthor,upload.array('pg[image]'),validatePg, ca
 }))
 
 app.delete('/home/:id',isLoggedIn,isAuthor,catchAsync(async (req,res)=>{
+    console.log("Inside");
     const { id } = req.params;
     await pgModel.findByIdAndDelete(id);
     req.flash('success','Deleted SuccessFully');

@@ -44,9 +44,10 @@
                 
                 <!-- <button id="edit" class="btn btn-primary btn-lg">Edit</button> -->
                 <!-- <button id="delete" class="btn btn-danger btn-lg">Delete</button> -->
+    
                 <form action="/home/<%= Pg._id %>?_method=DELETE" method="post">
                     <a href="/home/<%=Pg._id %>/edit" id="edit" class="btn btn-primary btn-lg">Edit</a>
-                    <a id="delete" class="btn btn-danger btn-lg">Delete</a>
+                    <button id="delete" class="btn btn-danger btn-lg">Delete</button>
                 </form>
             </div>
 
@@ -71,14 +72,6 @@
                     </form>
                     <% } %> 
             </div>
-            <!-- <div class="rev-btns">
-                <button id="all" class="btn btn-secondary">All (230)</button>
-                <button id="rev-imgs" class="btn btn-secondary"><i class="fa-solid fa-image"></i> 23</button>
-                <button id="comments" class="btn btn-secondary"><i class="fa-solid fa-comment"></i> 23</button>
-                <button id="5stars" class="btn btn-warning"><i class="fa-regular fa-star"></i><i
-                        class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i
-                        class="fa-regular fa-star"></i> 2123</button>
-            </div> -->
             <div class="reviews">
                 <% for(let review of Pg.reviews){ %>
                 <div class="review">
@@ -99,19 +92,6 @@
                     </div>
                 </div>
                 <% } %> 
-                <!-- <div class="review">
-                    <img src="https://sm.mashable.com/t/mashable_in/feature/3/368-episod/368-episodes-later-kakashis-face-revealed-in-naruto-shippude_vrrk.1248.jpg"
-                        alt="">
-                    <div class="user-rev">
-                        <div class="review-i">
-                            <p>⭐⭐⭐⭐</p>
-                            <p>Lorem, ipsum.</p>
-                        </div>
-                        <div class="del">
-                            <button class="btn btn-danger">Delete</button>
-                        </div>
-                    </div>
-                </div> -->
             </div>
         </div>
         <div id="sim-items">
@@ -134,67 +114,3 @@
     <script src="/js/viewfile.js"></script>
 
 
-
-    <!--  -->
-
-
-    <h1>View Page</h1>
-    <div>
-        <h2>Id : <%= Pg._id %> </h2>
-        <h2>Title : <%= Pg.title %> </h2>
-        <% for(let img of Pg.image) {%> 
-            <img src="<%= img.url %> " alt="" srcset="">
-            <% } %> 
-        <h2>price : <%= Pg.price %> </h2>
-        <h2>description : <%= Pg.description %> </h2>
-        <h2>location : <%= Pg.location %> </h2>
-        <h2>Rating : <%= Pg.rating %> </h2>
-        <br>
-        <% if(currentUser && Pg.author.equals(currentUser._id)) { %> 
-        <a href="/home/<%=Pg._id %>/edit">Edit</a>
-        <form action="/home/<%= Pg._id %>?_method=DELETE" method="post">
-            <button>Delete</button>
-        </form>
-        <% } %> 
-    </div>
-    <h1>Add Review </h1>
-    <% if(currentUser){ %> 
-    <!-- <form action="/home/<%= Pg._id %>/reviews" method="post"> -->
-        <!-- <div>
-            <label class="form-label" for="Rating">Rating</label>
-            <input type="range" name="review[rating]" id="Rating" min="1" max="5" required></input>
-        </div> -->
-        <!-- <fieldset class="starability-basic">
-            <legend>First rating:</legend>
-            <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
-            <input type="radio" id="second-rate1" name="review[rating]" value="1" />
-            <label for="second-rate1" title="Terrible">1 star</label>
-            <input type="radio" id="second-rate2" name="review[rating]" value="2" />
-            <label for="second-rate2" title="Not good">2 stars</label>
-            <input type="radio" id="second-rate3" name="review[rating]" value="3" />
-            <label for="second-rate3" title="Average">3 stars</label>
-            <input type="radio" id="second-rate4" name="review[rating]" value="4" />
-            <label for="second-rate4" title="Very good">4 stars</label>
-            <input type="radio" id="second-rate5" name="review[rating]" value="5" />
-            <label for="second-rate5" title="Amazing">5 stars</label>
-          </fieldset>
-        <div> -->
-            <!-- <label class="form-label" for="body">Review</label>
-            <textarea name="review[body]" id="body" cols="30" rows="3" required></textarea>
-        </div>
-        <button>Submit</button> -->
-    </form>
-    <% } %> 
-    <br>
-    <h1>User Reviews</h1>
-    <% for(let review of Pg.reviews){ %>
-    <div>
-        <p>Rating <%= review.rating %> </p>
-        <p class="starability-result" data-rating="<%= review.rating %>">
-          </p>
-        <p>Review : <%= review.body %> </p>
-        <form action="/home/<%= Pg._id %>/reviews/<%= review._id %>?_method=DELETE" method="post">
-            <button>Delete</button>
-        </form>
-    </div> 
-    <% } %> 
