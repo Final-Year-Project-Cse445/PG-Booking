@@ -127,11 +127,15 @@ app.get('/',(req,res)=>{
     res.render('Landing');
 })
 
+
 app.get('/home', async (req,res)=>{
     const Pgs = await pgModel.find({});
     res.render('Pg/home',{Pgs});
 })
-
+app.get('/index',(req,res)=>{
+    // res.send("Hello");
+    res.render('Pg/index');
+})
 app.get('/home/new',isLoggedIn,(req,res)=>{
     res.render('Pg/new');
 })
