@@ -130,11 +130,12 @@ app.get('/',(req,res)=>{
 
 app.get('/home', async (req,res)=>{
     const Pgs = await pgModel.find({});
-    res.render('Pg/home',{Pgs});
+    res.render('Pg/index',{Pgs});
 })
-app.get('/index',(req,res)=>{
+app.get('/index',async (req,res)=>{
     // res.send("Hello");
-    res.render('Pg/index');
+    const Pgs = await pgModel.find({});
+    res.render('Pg/index',{Pgs});
 })
 app.get('/home/new',isLoggedIn,(req,res)=>{
     res.render('Pg/new');
