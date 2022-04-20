@@ -21,19 +21,80 @@
   padding: 0;
   box-sizing: border-box;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+ 
 }
-.container1{
-  width: 85%;
-  background: #fff;
-  padding: 20px 60px 30px 40px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  float:auto;
-  align-content: right;
+.card{
+    margin-top: 25px;
+    background-color: rgba(21, 36, 111, 0);
 }
+form{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    column-gap: 20px;
+    margin:10px auto;
+    width: 80%;
+    position: relative;
+    z-index: 2;
+}
+
+form>div{
+    padding: 40px;
+    background-color: rgb(0, 0, 0,0.6);
+    border-radius: 10px;
+}
+.card-header>img{
+    max-width: 30%;
+    height: 30%;
+}
+
+.m-container{
+    /* background-color: #0093E9;
+background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%); */
+background-image: url('https://images.unsplash.com/photo-1415381236043-0e35ef42ed03?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80');
+background-repeat: no-repeat;
+background-position: center;
+background-size: cover;
+margin: 0;
+padding: 0;
+position: relative;
+color: #fff;
+}
+.titles{
+    position:relative;
+    z-index: 2;
+    color: #fff;
+}
+@media(max-width:1163px){
+    .layer1::after{
+        height: 1146px;
+    }
+}
+@media(max-width:1000px){
+     form{
+        grid-template-columns: 1fr;
+        
+    }
+    .card{
+        text-align: center;
+        width: auto;
+    }
+    .card>input{
+        width: 100%;
+    }
+    .card-header h3{
+        display: inline;
+    }
+    .card-header{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .layer1::after{
+        height: 1560px;
+    }
+}
+
       
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -125,52 +186,74 @@
     </div>
     <button>Update</button>
 </form> -->
-<div class="container1">
-    <form class="row g-3" action="/home/<%= Pg._id %>?_method=PUT " method="post" enctype="multipart/form-data">
-   <div class="col-md-6">
-      <label for="title">Title: </label>
-      <input type="text" id="title" name="pg[title]" placeholder="" value="<%= Pg.title %>" required>
-   </div>
-   <div class="col-md-6">
-      <label for="price">Price:</label>
-      <input type="text" id="price" name="pg[price]" placeholder="" value="<%= Pg.price %>" required>
-   </div>
-   
-   <div class="col-md-6">
-      <label for="location">Location: </label>
-      <input type="text" id="location" name="pg[location]" placeholder="" value="<%= Pg.location %>" required>
-   </div>
+<div class="layer1">
+  <div class="m-container">
+    <div class="py-5 text-center">
+      <img class="titles"src="https://www.seekpng.com/png/full/375-3752606_homepage-icon-house-logo-png-white.png" alt="" width="60" height="60">
+      <h3 class="titles">Edit Detail Of Pg</h3>
+  </div>
+ <form class="needs-validation">
 
-   <div class="col-md-6">
-      <label for="rating">Rating: </label>
-      <input type="text" id="rating" name="pg[rating]" placeholder="" value="<%= Pg.rating %>" required>
-   </div>
-
-   <div class="col-md-6">
-    <label for="image">Image: </label>
-    <input type="file" id="image" name="pg[image]" placeholder=""  multiple >
+  <div>
+    <h4 class="d-flex justify-content-between align-items-center mb-3">
+      Images
+  </h4>
+    <div class="row" style="width: auto; height: 300px;">
+      <div class="text-primary">
+        <div class="card">
+      <% Pg.image.forEach(function(img,i) { %>
+        <img src="<%= img.url %> "  class="img-fluid img-thumbnail" alt="" srcset=""> 
+        <div class="form-check-inline">
+            <input type="checkbox" id="image-<%= i %>" name="deleteImages[]" value="<%= img.filename %>" >
+        </div>
+       <div class="col-md-6">
+        <label for="image-<%= i %> ">Delete ?</label>
+        <% }) %>
+        </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-   <div class="col-md-6">
-    <label for="description">Description: </label>
-    <input type="text" id="description" name="pg[description]" placeholder="" value="<%= Pg.description %>" required>
+  <div>
+    <div class="row g-3">
+    <div class=" " action="/home/<%= Pg._id %>?_method=PUT " method="post" enctype="multipart/form-data">
+      <label for="title" class="form-label">Title: </label>
+      <input type="text"  class="form-control" id="title" name="pg[title]" placeholder="" value="<%= Pg.title %>" required>
+   </div>
+   <div class=" ">
+      <label for="price" class="form-label">Price:</label>
+      <input type="text" class="form-control" id="price" name="pg[price]" placeholder="" value="<%= Pg.price %>" required>
+   </div>
+   
+   <div class=" ">
+      <label for="location" class="form-label">Location: </label>
+      <input type="text" class="form-control" id="location" name="pg[location]" placeholder="" value="<%= Pg.location %>" required>
+   </div>
+
+   <div class=" ">
+      <label for="rating" class="form-label">Rating: </label>
+      <input type="text" class="form-control" id="rating" name="pg[rating]" placeholder="" value="<%= Pg.rating %>" required>
+   </div>
+
+   <div class=" ">
+    <label for="image" class="form-label">Image: </label>
+    <input type="file" class="form-control" id="image" name="pg[image]" placeholder=""  multiple >
+  </div>
+
+   <div class=" ">
+    <label for="description" class="form-label">Description: </label>
+    <input type="text" class="form-control" id="description" name="pg[description]" placeholder="" value="<%= Pg.description %>" required>
  </div>
-  <div class="col-md-3">
-    <% Pg.image.forEach(function(img,i) { %>
-      <img src="<%= img.url %> "  class="img-fluid img-thumbnail" alt="" srcset=""> 
-      <div class="form-check-inline">
-          <input type="checkbox" id="image-<%= i %>" name="deleteImages[]" value="<%= img.filename %>" >
-      </div>
-     <div class="col-md-6">
-      <label for="image-<%= i %> ">Delete ?</label>
-      <% }) %>
-      </div>
   <div class="col-12">
   <button type="submit" class="btn btn-primary">Add</button>
   </div>
- 
-</form>
 </div>
+</div>
+  </div>
+</form>
+  </div>
+  </div>
 
 
 
