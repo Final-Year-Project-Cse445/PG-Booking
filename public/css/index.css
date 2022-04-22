@@ -663,7 +663,7 @@ ul.pagination .active a {
 }
 
 .bg-3 {
-  background: url(../images/call-to-action/cta-background.jpg);
+  background: url("../assets/test06.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }
