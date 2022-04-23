@@ -26,8 +26,9 @@
 }
 
 .containers>div{
-    background-color: rgba(15, 95, 145, 0.49);
+    background-color: rgba(17, 98, 149, 0.578);
     color: #fff;
+    box-shadow: 10px 10px rgba(17, 98, 149, 0.368);
 }
 textarea{
     background-color: rgba(60, 16, 16, 0.1);
