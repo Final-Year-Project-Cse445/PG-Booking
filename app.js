@@ -204,7 +204,6 @@ app.get('/login',(req,res)=>{
 })
 
 app.post('/login',passport.authenticate('local',{failureFlash:true,failureRedirect:'/login'}),(req,res)=>{
-    console.log("Login Post in")
     req.flash('success','Welcome Back');
     const redirecturl = req.session.returnto || '/home';
     delete req.session.returnto;
