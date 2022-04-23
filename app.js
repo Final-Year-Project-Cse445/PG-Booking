@@ -127,11 +127,16 @@ app.get('/',(req,res)=>{
     res.render('Landing');
 })
 
+
 app.get('/home', async (req,res)=>{
     const Pgs = await pgModel.find({});
-    res.render('Pg/home',{Pgs});
+    res.render('Pg/index',{Pgs});
 })
-
+app.get('/index',async (req,res)=>{
+    // res.send("Hello");
+    const Pgs = await pgModel.find({});
+    res.render('Pg/index',{Pgs});
+})
 app.get('/home/new',isLoggedIn,(req,res)=>{
     res.render('Pg/new');
 })
@@ -199,6 +204,7 @@ app.get('/login',(req,res)=>{
 })
 
 app.post('/login',passport.authenticate('local',{failureFlash:true,failureRedirect:'/login'}),(req,res)=>{
+    console.log("Login Post in")
     req.flash('success','Welcome Back');
     const redirecturl = req.session.returnto || '/home';
     delete req.session.returnto;

@@ -250,19 +250,6 @@ a {
   transition: all .5s ease-Out;
 }
 
-#button-6:hover #spin {
-  width: 200%;
-  height: 500%;
-  opacity: 1;
-  left: -70px;
-  top: -70px;
-  background: #BFC0C0;
-  transform: rotate(80deg);
-}
-
-#button-6:hover a {
-  color: #2D3142;
-}
 
 
 @media screen and (min-width:1000px) {
