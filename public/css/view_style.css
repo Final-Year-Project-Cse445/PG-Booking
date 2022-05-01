@@ -193,6 +193,10 @@ label{
     margin-bottom: 30px;
 }
 
+#txt-print{
+    font-size: 20px;
+    display: none;
+}
 
 @media(max-width:1153px) {
     .containers {
