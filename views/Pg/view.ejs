@@ -47,6 +47,7 @@
                 <form action="/home/<%= Pg._id %>?_method=DELETE" method="post">
                     <button id="delete" class="btn btn-danger btn-lg">Delete</button>
                 </form>
+                <button id="delete" class="btn btn-success btn-lg">Book</button>
             </div>
 
         </div>
@@ -79,6 +80,7 @@
                         class="fa-regular fa-star"></i> 2123</button>
             </div> -->
             <div class="reviews">
+                <div>
                 <% for(let review of Pg.reviews){ %>
                 <div class="review">
                     <img src="https://play-lh.googleusercontent.com/ByaDki7oQ9RZJV2XRVgRUCAHmM6aqApy4TLAiDx4MG2BVtr2ijknHf2taM76CjFBpdc"
@@ -112,6 +114,7 @@
                     </div>
                 </div> -->
             </div>
+        </div>
         </div>
         <div id="sim-items">
             <p>Similar items:</p>

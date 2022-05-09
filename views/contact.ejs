@@ -99,7 +99,7 @@
                                         <input type="text" placeholder="Name *" class="form-control" required>
                                     </div>
                                     <div class="col-lg-6 pt-2">
-                                        <input type="email" placeholder="Email *" class="form-control" required>
+                                        <input id="mailid" type="email" placeholder="Email *" class="form-control"  required>
                                     </div>
                                 </div>
                             </div>
@@ -241,20 +241,20 @@
     <a id="top" class="" href="#"><i class="fa fa-angle-up"></i></a>
   </div>
 </footer>
-<script src="https://smtpjs.com/v3/smtp.js"></script>
+<script src="https://smtpjs.com/v3/smtp.js">
+</script>
 <script>
+  
     function sendEmail(){
       Email.send({
-        Host : "smtp.gmail.com",
-        Username : "princearyangf@gmail.com",
-        Password : "password",
-        To : 'them@website.com',
-        From : "you@isp.com",
-        Subject : "This is the subject",
-        Body : "And this is the body"
-      }).then(
-        message => alert(message)
-          );
+    SecureToken : "92166780-2bf5-4430-b1d3-f34248c896c8",
+    To : 'getmypgroom@gmail.com',
+    From : document.getElementById('mailid').value,
+    Subject : "This is the subject",
+    Body : "And this is the body"
+}).then(
+  message => alert(message)
+);
     }
 </script>
 <!-- JAVASCRIPTS -->
@@ -273,6 +273,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU&libraries=places"></script>
 <script src="plugins/google-map/gmap.js"></script>
 <script src="js/script.js"></script>
+
 
 </body>
 
