@@ -97,7 +97,8 @@ const validatePg = (req, res, next) => {
       // image : Joi.string().required(),
       location: Joi.string().required(),
       description: Joi.string().required(),
-      rating: Joi.number().required().max(5),
+      // rating: Joi.number().required().max(5),
+      roomtype: Joi.number().required().max(4)
     }).required(),
     deleteImages: Joi.array(),
   });
@@ -162,7 +163,7 @@ app.post("/home_search", async (req, res) => {
   });
   // // const queryone = await pgModel.find({$cond:{if : }})
   // const {price,Category,location} = req.body
-  console.log(req.body);
+  // console.log(req.body);
   // console.log(pgs);
   res.locals.isSearch = true;
   res.render('Pg/show',{Pgs});
@@ -201,6 +202,7 @@ app.get(
       req.flash("error", "Invalid Pg Request");
       return res.redirect("/home");
     }
+    // console.log(Pg);
     res.render("Pg/view", { Pg });
   })
 );

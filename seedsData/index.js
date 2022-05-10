@@ -20,6 +20,7 @@ const seedDB = async ()=>{
             description: `${pgs[i].description}`,
             location: `${pgs[i].location}`, 
             rating: `${pgs[i].rating}`,
+            roomtype : `${pgs[i].roomtype}`,
             image : [
                 {
                     url: 'https://res.cloudinary.com/dalt2i8bs/image/upload/v1649510082/GMP/sh8bxljfza4nuwfqoinb.jpg',

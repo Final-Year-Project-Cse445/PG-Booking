@@ -4,6 +4,7 @@ module.exports.pgs = [
         price : 5000,
         description : 'Paying Guest Accommodations',
         location : '42C, Phagwara Ho, Phagwara - 144401, Near Green Park Model Town',
+        roomtype : 1,
         rating : 4.5
     },
     {
@@ -11,6 +12,7 @@ module.exports.pgs = [
         price : 5000,
         description : 'Paying Guest Accommodations',
         location : 'Lpu Maheru, Phagwara - 144401',
+        roomtype : 1,
         rating : 3.5
     },
     {
@@ -18,6 +20,7 @@ module.exports.pgs = [
         price : 5000,
         description : 'Paying Guest Accommodations',
         location : 'Lpu University, Phagwara - 144401',
+        roomtype : 1,
         rating : 3.5
     },
     {
@@ -25,6 +28,7 @@ module.exports.pgs = [
         price : 5000,
         description : 'Paying Guest Accommodations',
         location : 'Lpu University, Phagwara - 144401',
+        roomtype : 1,
         rating : 4.8
     },
     {
@@ -32,6 +36,7 @@ module.exports.pgs = [
         price : 5000,
         description : 'Paying Guest Accommodations',
         location : 'Lpu University, Phagwara - 144401',
+        roomtype : 1,
         rating : 3.5
     },
     {
@@ -39,6 +44,7 @@ module.exports.pgs = [
         price : 5000,
         description : 'Paying Guest Accommodations',
         location : '42C, Phagwara Ho, Phagwara - 144401, Near Green Park Model Town',
+        roomtype : 1,
         rating : 4.5
     },
     {
@@ -46,6 +52,7 @@ module.exports.pgs = [
         price : 5000,
         description : 'Paying Guest Accommodations',
         location : 'Lpu Maheru, Phagwara - 144401',
+        roomtype : 1,
         rating : 3.5
     },
     {
@@ -53,6 +60,7 @@ module.exports.pgs = [
         price : 5000,
         description : 'Paying Guest Accommodations',
         location : 'Lpu University, Phagwara - 144401',
+        roomtype : 1,
         rating : 3.5
     },
     {
@@ -60,6 +68,7 @@ module.exports.pgs = [
         price : 5000,
         description : 'Paying Guest Accommodations',
         location : 'Lpu University, Phagwara - 144401',
+        roomtype : 1,
         rating : 4.8
     },
     {
@@ -67,6 +76,7 @@ module.exports.pgs = [
         price : 5000,
         description : 'Paying Guest Accommodations',
         location : 'Lpu University, Phagwara - 144401',
+        roomtype : 1,
         rating : 3.5
     },
 ]
