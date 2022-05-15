@@ -147,9 +147,6 @@ app.get("/home/new", isLoggedIn, (req, res) => {
 });
 
 app.get("/home/show", async (req, res) => {
-  if(res.locals.isSearch){
-    console.log("IsSearch");
-  }
   const Pgs = await pgModel.find({});
   res.render("Pg/show", { Pgs });
 });

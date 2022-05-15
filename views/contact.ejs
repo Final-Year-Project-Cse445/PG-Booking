@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Classimax</title>
+  <title>GMP</title>
   
   <!-- FAVICON -->
   <link href="img/favicon.png" rel="shortcut icon">
@@ -45,13 +45,13 @@
         </button>
         <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
             <ul class="navbar-nav w-100 justify-content-center">
-                <li class="nav-item active">
+                <li class="nav-item ">
                     <a class="nav-link" href="/home">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/home/show">PG</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="/contact">Contact</a>
                 </li>
             </ul>
@@ -91,19 +91,19 @@
                 </div>
             </div>
             <div class="col-md-6">
-                    <form onsubmit="sendEmail(); reset(); return false;" >
+                    <form action="https://formspree.io/f/mknykqyp" method="POST" >
                         <fieldset class="p-4">
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-lg-6 py-2">
-                                        <input type="text" placeholder="Name *" class="form-control" required>
+                                        <input type="text" name="Name" placeholder="Name *" class="form-control" required>
                                     </div>
                                     <div class="col-lg-6 pt-2">
-                                        <input id="mailid" type="email" placeholder="Email *" class="form-control"  required>
+                                        <input id="mailid" type="email" name="Email" placeholder="Email *" class="form-control"  required>
                                     </div>
                                 </div>
                             </div>
-                            <select name="" id="" class="form-control w-100">
+                            <select name="Type" id="" class="form-control w-100">
                                 <option value="1">Select Category</option>
                                 <option value="1">Laptop</option>
                                 <option value="1">iPhone</option>
@@ -241,9 +241,9 @@
     <a id="top" class="" href="#"><i class="fa fa-angle-up"></i></a>
   </div>
 </footer>
-<script src="https://smtpjs.com/v3/smtp.js">
-</script>
-<script>
+<!-- <script src="https://smtpjs.com/v3/smtp.js">
+</script> -->
+<!-- <script>
   
     function sendEmail(){
       Email.send({
@@ -256,7 +256,7 @@
   message => alert(message)
 );
     }
-</script>
+</script> -->
 <!-- JAVASCRIPTS -->
 <script src="plugins/jQuery/jquery.min.js"></script>
 <script src="plugins/bootstrap/js/popper.min.js"></script>
