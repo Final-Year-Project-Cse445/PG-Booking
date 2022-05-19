@@ -1,6 +1,7 @@
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
+
 const express = require("express");
 const mongoose = require("mongoose");
 const ejsMate = require("ejs-mate");
@@ -97,7 +98,7 @@ const validatePg = (req, res, next) => {
       // image : Joi.string().required(),
       location: Joi.string().required(),
       description: Joi.string().required(),
-      // rating: Joi.number().required().max(5),
+      rating: Joi.number().required().max(5),
       roomtype: Joi.number().required().max(4)
     }).required(),
     deleteImages: Joi.array(),
@@ -132,6 +133,39 @@ const reviewvalidate = (req, res, next) => {
 app.get("/", (req, res) => {
   res.render("Landing");
 });
+app.get("/single", async(req, res) => {
+  const Pgs = await pgModel.find({roomtype: 1});
+  res.render('Pg/show',{Pgs});
+});
+app.get("/double", async(req, res) => {
+  const Pgs = await pgModel.find({roomtype: 2});
+  res.render('Pg/show',{Pgs});
+});
+
+app.get('/Admincheck',async(req,res)=>{
+  res.render("admin/check");
+})
+
+app.get('/Aupdate',async(req,res)=>{
+  const Pgs = await pgModel.find({});
+  res.render("Pg/Aupdate",{Pgs});
+})
+
+app.get('/Adelete',async(req,res)=>{
+  const Pgs = await pgModel.find({});
+  res.render("Pg/Adelete",{Pgs});
+})
+
+app.post('/admin',async(req,res)=>{
+    const CODE = process.env.USER;
+    const access = req.body.access;
+    if(CODE == access){
+      res.render('Pg/Admin');
+    }else{
+      const error = "Wrong Code, Try Again"
+      res.render('admin/check',{error});
+    }
+})
 
 app.get("/home", async (req, res) => {
   const Pgs = await pgModel.find({});
@@ -155,14 +189,15 @@ app.post("/home_search", async (req, res) => {
   let { price_range, Room_size, raiting } = req.body;
   price_range = parseInt(price_range);
   raiting = parseInt(raiting);
+  Room_size = parseInt(Room_size);
   const Pgs = await pgModel.find({
-    $and: [{ price: { $gte: price_range }},{rating :{$gte:raiting}}]
+    $and: [{ price: { $gte: price_range }},{rating :{$gte:raiting}},{roomtype:Room_size}]
   });
   // // const queryone = await pgModel.find({$cond:{if : }})
   // const {price,Category,location} = req.body
   // console.log(req.body);
   // console.log(pgs);
-  res.locals.isSearch = true;
+  // res.locals.isSearch = true;
   res.render('Pg/show',{Pgs});
 });
 

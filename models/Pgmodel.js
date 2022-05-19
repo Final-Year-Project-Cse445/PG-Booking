@@ -13,11 +13,11 @@ const pgSchema = new Schema({
      ],
     description : String,
     location : String,
-    rating : String,
+    rating : Number,
     roomtype : {
         type:Number,
         min:1,
-        max:30,
+        max:4,
     },
     author : {
         type : Schema.Types.ObjectId,
