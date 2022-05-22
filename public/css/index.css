@@ -465,7 +465,9 @@ button {
   padding: 6px 20px;
   font-size: 12px;
 }
-
+.btn-sm{
+  padding: 5px 8px !important;
+}
 .btn-secondary {
   background: #fff;
   color: #000;
@@ -609,8 +611,9 @@ ul.pagination .active a {
 }
 
 .page-search {
-  background: #5672f9;
+  background: rgba(73, 155, 136, 0.829);
   padding: 30px 0;
+  border-radius: 5px;
 }
 
 .page-search .advance-search .form-group {
@@ -1405,6 +1408,7 @@ ul.pagination .active a {
 .search-result {
   padding: 20px;
   margin-bottom: 20px;
+  background-color: rgba(116, 144, 15, 0.218);
 }
 
 .search-result p {
