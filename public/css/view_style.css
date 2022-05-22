@@ -18,18 +18,19 @@
     grid-template-rows: repeat(6, 1fr);
     /* grid-auto-rows: minmax(200px,auto); */
     gap: 20px;
-    background-color: rgba(15, 95, 145, 0.3);
+    /* background-color: rgba(15, 95, 145, 0.3); */
     
     /* margin: 50px 0; */
     background-size: contain;
     width: 100%;
     height: 1500px;
+    background-color: #bbb;
 }
 
 .containers>div{
-    background-color: rgba(17, 98, 149, 0.578);
-    color: #fff;
-    box-shadow: 10px 10px rgba(17, 98, 149, 0.368);
+    /* background-color: rgba(17, 98, 149, 0.578); */
+    color: #000;
+    /* box-shadow: 10px 10px rgba(17, 98, 149, 0.368); */
 }
 textarea{
     background-color: rgba(60, 16, 16, 0.1);
@@ -66,7 +67,7 @@ textarea{
 .containers>div {
     padding: 40px;
     border-radius: 10px;
-    border:1px solid #ddd;
+    /* border:1px solid #ddd; */
     
 }
 .desc{
