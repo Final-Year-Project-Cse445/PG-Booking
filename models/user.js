@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 const passportLocalMonggose = require('passport-local-mongoose');
 
 const userSchema = new Schema({
+    isadmin : Boolean,
     email: {
         type: 'string',
         required: true,

@@ -31,96 +31,53 @@
 
   <body class="body-wrapper">
     <section>
-      <div>
-        <div class="row">
-          <div class="col-md-12">
-            <nav
-              class="navbar navbar-expand-md navbar-dark bg-dark justify-content-center"
-            >
-              <div class="container">
-                <a href="/" class="navbar-brand d-flex w-50 me-auto">GMP</a>
-                <button
-                  class="navbar-toggler"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapsingNavbar3"
-                >
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-                <div
-                  class="navbar-collapse collapse w-100"
-                  id="collapsingNavbar3"
-                >
-                  <ul class="navbar-nav w-100 justify-content-center">
-                    <li class="nav-item active">
-                      <a class="nav-link" href="/home">Home</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="/home/show">PG</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="/contact">Contact</a>
-                    </li>
-                  </ul>
-                  <ul class="nav navbar-nav ms-auto w-100 justify-content-end">
-                    <% if(!currentUser) { %>
-                    <li class="nav-item">
-                      <a class="nav-link" href="/login">Login</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="/signup">Signup</a>
-                    </li>
-                    <% } %>
-                    <% if(currentUser) { %>
-                    <li class="nav-item">
-                      <a class="nav-link" href="/logout">Logout</a>
-                    </li>
-                    <% } %>
-                    <li class="nav-item">
-                      <a class="nav-link" href="/Admincheck">Admin</a>
-                    </li>
-                    <!-- <li class="nav-item dropdown">
-                      <a
-                        class="nav-link dropdown-toggle"
-                        href="#"
-                        id="navbarScrollingDropdown"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        Admin
-                      </a>
-                      <ul
-                        class="dropdown-menu dropdown-menu-right"
-                        aria-labelledby="navbarScrollingDropdown">
-                        <li>
-                          <a class="dropdown-item" href="/home/new">Add Pg</a>
-                        </li>
-                        <li>
-                          <a class="dropdown-item" href="/about">About</a>
-                        </li>
-                        <li>
-                          <hr class="dropdown-divider" />
-                        </li>
-                        <li>
-                          <a class="dropdown-item" href="/userGuide"
-                            >User GuideLines</a
-                          >
-                        </li>
-                      </ul>
-                    </li> -->
-                  </ul>
-                </div>
-              </div>
-            </nav>
+      <nav
+        class="navbar navbar-expand-md navbar-dark bg-dark justify-content-center"
+      >
+        <div class="container">
+          <a href="/" class="navbar-brand d-flex w-50 me-auto">GMP</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapsingNavbar3"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
+            <ul class="navbar-nav w-100 justify-content-center">
+              <li class="nav-item ">
+                <a class="nav-link active" href="/home">Home</a>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link" href="/home/show">PG</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/contact">Contact</a>
+              </li>
+            </ul>
+            <ul class="nav navbar-nav ms-auto w-100 justify-content-end">
+              <% if(!currentUser) { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/signup">Signup</a>
+              </li>
+              <% } %>
+              <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/Admincheck">Admin</a>
+              </li>
+              
+            </ul>
           </div>
         </div>
-      </div>
+      </nav>
     </section>
 
-    <!--===============================
-=            Hero Area            =
-================================-->
 
     <section class="hero-area bg-1 text-center overly">
       <!-- Container Start -->

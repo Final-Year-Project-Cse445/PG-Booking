@@ -193,11 +193,6 @@ app.post("/home_search", async (req, res) => {
   const Pgs = await pgModel.find({
     $and: [{ price: { $gte: price_range }},{rating :{$gte:raiting}},{roomtype:Room_size}]
   });
-  // // const queryone = await pgModel.find({$cond:{if : }})
-  // const {price,Category,location} = req.body
-  // console.log(req.body);
-  // console.log(pgs);
-  // res.locals.isSearch = true;
   res.render('Pg/show',{Pgs});
 });
 
@@ -304,7 +299,31 @@ app.post(
   catchAsync(async (req, res) => {
     try {
       const { email, username, password } = req.body;
-      const user = new User({ email, username });
+      const user = new User({ email, username ,isadmin: false });
+      const registeredUser = await User.register(user, password);
+      req.login(registeredUser, (err) => {
+        req.flash("success", "Registered Successfully");
+        res.redirect("/home");
+      });
+    } catch (e) {
+      req.flash("error", e.message);
+      res.redirect("/signup");
+    }
+    // console.log(registeredUser);
+    // res.redirect('/home');
+  })
+);
+
+app.get("/Adminsignup", (req, res) => {
+  res.render("Asignup");
+});
+
+app.post(
+  "/Adminregister",
+  catchAsync(async (req, res) => {
+    try {
+      const { email, username, password } = req.body;
+      const user = new User({ email, username ,isadmin: true });
       const registeredUser = await User.register(user, password);
       req.login(registeredUser, (err) => {
         req.flash("success", "Registered Successfully");
