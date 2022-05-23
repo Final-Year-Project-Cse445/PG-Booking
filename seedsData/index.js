@@ -26,7 +26,11 @@ const seedDB = async ()=>{
                     url: 'https://res.cloudinary.com/dalt2i8bs/image/upload/v1649510082/GMP/sh8bxljfza4nuwfqoinb.jpg',
                     filename: 'GMP/atvvyhmo5uogkk3hkwit',
                   }
-            ]
+            ],
+            OwnerDetails : {
+                name : 'RamLal',
+                contact : '123456789'
+            }
         });
         await Pg.save();
     }

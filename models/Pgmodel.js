@@ -14,6 +14,10 @@ const pgSchema = new Schema({
     description : String,
     location : String,
     rating : Number,
+    OwnerDetails : {
+        name : String,
+        contact : String
+    },
     roomtype : {
         type:Number,
         min:1,

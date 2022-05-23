@@ -66,6 +66,8 @@ const isAuthor = async (req, res, next) => {
   next();
 };
 
+
+
 //to parse the body of post requests.
 app.use(express.urlencoded({ extended: true }));
 
@@ -76,9 +78,9 @@ app.use(methodOverride("_method"));
 const pgModel = require("./models/Pgmodel");
 const Review = require("./models/review");
 
-const res = require("express/lib/response");
+// const res = require("express/lib/response");
 const user = require("./models/user");
-const Pgmodel = require("./models/Pgmodel");
+// const Pgmodel = require("./models/Pgmodel");
 mongoose
   .connect("mongodb://localhost:27017/test01")
   .then(() => {
@@ -88,6 +90,17 @@ mongoose
     console.log("Error in Connecting Databse");
     console.log(error);
   });
+
+  const isAdmin = async (req, res, next) => {
+    const { id } = req.params;
+    const CurrentUser = req.user;
+    if(CurrentUser.isadmin === false){
+      req.flash("error", "Sorry You Are Not an Admin");
+      return res.redirect(`/home/${id}`);
+    }
+    next();
+  };
+
 
 //PGError_JOI_Validate Middleware_for_pgvalidation
 const validatePg = (req, res, next) => {
@@ -253,7 +266,7 @@ app.post(
 app.get(
   "/home/:id/edit",
   isLoggedIn,
-  isAuthor,
+  isAdmin,
   catchAsync(async (req, res) => {
     const { id } = req.params;
     const Pg = await pgModel.findById(req.params.id);
@@ -359,7 +372,7 @@ app.get("/userGuide", (req, res) => {
 app.put(
   "/home/:id",
   isLoggedIn,
-  isAuthor,
+  isAdmin,
   upload.array("pg[image]"),
   validatePg,
   catchAsync(async (req, res) => {
@@ -390,7 +403,7 @@ app.put(
 app.delete(
   "/home/:id",
   isLoggedIn,
-  isAuthor,
+  isAdmin,
   catchAsync(async (req, res) => {
     const { id } = req.params;
     await pgModel.findByIdAndDelete(id);
