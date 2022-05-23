@@ -1,6 +1,16 @@
 <% layout('layout/boilerplate') %>
 <link rel="stylesheet" href="/starcss/stars.css">
 <link rel="stylesheet" href="/css/view_style.css">
+<div id="pop-up-container"class="show">
+    <div id="contain-in">
+        <h1 id="pop-h">Hello!!</h1>
+        <p id="p-text-m">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti minus praesentium provident
+            repellendus, eum sapiente doloremque nesciunt ad, rerum nulla laboriosam veritatis cupiditate reiciendis.
+            Veniam
+            ex fugit beatae animi quae?</p>
+        <div id="btn-contain-in"><button id="close">close</button></div>
+    </div>
+</div>
 <div class="containers">
     <div id="img-section">
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -29,13 +39,11 @@
     <div id="desc-section">
         <div class="title-pg">
             <h3><%= Pg.title %></h3>
-            <br>
             <h5>Available Features</h5>
         </div>
         <h3>price : <%= Pg.price %></h3>
         <div class="desc">
             <h5>Description</h5>
-            <br>
             <p>: <%= Pg.description %></p>
             <ul>
                 <li>Bed Count <%= Pg.roomtype %> </li>
@@ -43,11 +51,10 @@
             </ul>
         </div>
         <h5>Location : <%= Pg.location %></h5>
-        <br>
         <h5>Rating: <%= Pg.rating %></h5>
         <div class="btns">
 
-            <button id="delete" class="btn btn-success btn-lg">Book</button>
+            <button id="open" class="btn btn-lg btn-success">Book</button>
         </div>
 
     </div>
@@ -116,13 +123,16 @@
                 </div> -->
             </div>
         </div>
-    
+
     </div>
     <div id="sim-items">
         <p>Similar items:</p>
         <div class="sim-imgs">
             <% for(let img of Pg.image) {%>
-            <img src="<%= img.url %>" alt="" width="280px">
+            <img src="<%= img.url %>" alt="">
+            <img src="<%= img.url %>" alt="">
+            <img src="<%= img.url %>" alt="">
+            <img src="<%= img.url %>" alt="">
             <% } %>
             <!-- <img src="/images/adam-winger-VGs8z60yT2c-unsplash.jpg" alt="">
                 <img src="/images/edelle-bruton-PJNO2sLlbB8-unsplash.jpg" alt="">
