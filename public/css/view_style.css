@@ -109,7 +109,7 @@ label{
 }
 #reviews-mv{
     height: 370px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 .review {
     display: flex;
