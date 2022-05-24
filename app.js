@@ -56,15 +56,9 @@ app.use((req, res, next) => {
   next();
 });
 
-const isAuthor = async (req, res, next) => {
-  const { id } = req.params;
-  const pg = await pgModel.findById(id);
-  if (!pg.author.equals(req.user._id)) {
-    req.flash("error", "Permission denied");
-    return res.redirect(`/home/${id}`);
-  }
-  next();
-};
+
+
+
 
 
 
@@ -91,6 +85,16 @@ mongoose
     console.log(error);
   });
 
+  const isAuthor = async (req, res, next) => {
+    const { id } = req.params;
+    const pg = await pgModel.findById(id);
+    if (!pg.author.equals(req.user._id)) {
+      req.flash("error", "Permission denied");
+      return res.redirect(`/home/${id}`);
+    }
+    next();
+  };
+
   const isAdmin = async (req, res, next) => {
     const { id } = req.params;
     const CurrentUser = req.user;
@@ -112,7 +116,9 @@ const validatePg = (req, res, next) => {
       location: Joi.string().required(),
       description: Joi.string().required(),
       rating: Joi.number().required().max(5),
-      roomtype: Joi.number().required().max(4)
+      roomtype: Joi.number().required().max(4),
+      Ownername:Joi.string().required(),
+      OwnerContact : Joi.string().required(),
     }).required(),
     deleteImages: Joi.array(),
   });
@@ -190,7 +196,7 @@ app.get("/index", async (req, res) => {
   res.render("Pg/index", { Pgs });
 });
 app.get("/home/new", isLoggedIn, (req, res) => {
-  res.render("Pg/new");
+    res.render("Pg/new");
 });
 
 app.get("/home/show", async (req, res) => {
@@ -220,7 +226,7 @@ app.post(
     Pg.image = req.files.map((f) => ({ url: f.path, filename: f.filename }));
     Pg.author = req.user._id;
     await Pg.save();
-    // console.log(Pg);
+    console.log(Pg);
     req.flash("success", "Successfully Created a new PG");
     res.redirect(`/home/${Pg._id}`);
   })
@@ -415,6 +421,7 @@ app.delete(
 app.delete(
   "/home/:id/reviews/:reviewId",
   isLoggedIn,
+  isAuthor,
   catchAsync(async (req, res) => {
     const { id, reviewId } = req.params;
     await pgModel.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
