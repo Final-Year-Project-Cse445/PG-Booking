@@ -35,26 +35,34 @@
 
     </div>
     <div id="desc-section">
-        <div class="title-pg">
-            <h3><%= Pg.title %></h3>
-            <h5>Available Features</h5>
+        <div class="col-lg-6 order-3">
+            <div class="product_description">
+                <div class="product_name"><h2><%= Pg.title.toUpperCase() %></h2></div>
+                <div class="product-rating"><span class="badge badge-success"><i class="fa fa-star"></i> <%= Pg.rating %></span> <span class="rating-review">35 Ratings & 45 Reviews</span></div>
+                <div> <span class="product_price"><h3>₹ <%= Pg.price %></h3></span></div>
+                <hr class="singleline">
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-xs-6" style="margin-left: 25px;"> <span class="product_options">Facilities Available</span><br> <button class="btn btn-primary btn-sm">WIFI</button> <button class="btn btn-primary btn-sm">Televison</button> <button class="btn btn-primary btn-sm">Refrigerator</button> <button class="btn btn-primary btn-sm">Aqua Guard</button> <button class="btn btn-primary btn-sm">Geyser</button> <button class="btn btn-primary btn-sm">AC Room</button> </div>
+                        <div class="pr-info"> <span class="break-all"><i class="fa fa-map-marker" aria-hidden="true"></i>
+                            <%= Pg.location %></span> </div>
+                            <div class="col-xs-6" style="margin-left: 10px;"> <span class="product_options">Room Type </span>  <button class="btn btn-info btn-sm"><%= Pg.roomtype %> Bed</button> </div>
+                    </div>
+                <hr class="singleline">
+                <div class="row">
+                    <div class="col-xs-6" style="margin-left: 13px;">
+                        <div> <span class="product_info">For Booking<span></div>
+                    </div>
+                    <div class="col-xs-6">  <button type="button" id="open" class="btn btn-lg btn-success">Contact Owner</button>
+                    </div>
+                </div>
+                <hr class="singleline">
+                <div class="row">
+                    <div class="col-xs-6" style="margin-left: 13px;">
+                        <div> <span class="product_info"> <%= Pg.description %><span></div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <h3>price : <%= Pg.price %></h3>
-        <div class="desc">
-            <h5>Description</h5>
-            <p>: <%= Pg.description %></p>
-            <ul>
-                <li>Bed Count <%= Pg.roomtype %> </li>
-                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-            </ul>
-        </div>
-        <h5>Location : <%= Pg.location %></h5>
-        <h5>Rating: <%= Pg.rating %></h5>
-        <div class="btns">
-
-            <button id="open" class="btn btn-lg btn-success">Book</button>
-        </div>
-
     </div>
     <div id="review-section">
         <div class="rating">
@@ -77,14 +85,6 @@
             </form>
             <% } %>
         </div>
-        <!-- <div class="rev-btns">
-                <button id="all" class="btn btn-secondary">All (230)</button>
-                <button id="rev-imgs" class="btn btn-secondary"><i class="fa-solid fa-image"></i> 23</button>
-                <button id="comments" class="btn btn-secondary"><i class="fa-solid fa-comment"></i> 23</button>
-                <button id="5stars" class="btn btn-warning"><i class="fa-regular fa-star"></i><i
-                        class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i
-                        class="fa-regular fa-star"></i> 2123</button>
-            </div> -->
         <div id="reviews-mv" class="reviews">
             <div class="div-mv">
                 <% for(let review of Pg.reviews){ %>
@@ -106,19 +106,6 @@
                     </div>
                 </div>
                 <% } %>
-                <!-- <div class="review">
-                    <img src="https://sm.mashable.com/t/mashable_in/feature/3/368-episod/368-episodes-later-kakashis-face-revealed-in-naruto-shippude_vrrk.1248.jpg"
-                        alt="">
-                    <div class="user-rev">
-                        <div class="review-i">
-                            <p>⭐⭐⭐⭐</p>
-                            <p>Lorem, ipsum.</p>
-                        </div>
-                        <div class="del">
-                            <button class="btn btn-danger">Delete</button>
-                        </div>
-                    </div>
-                </div> -->
             </div>
         </div>
 
@@ -132,10 +119,6 @@
             <img src="<%= img.url %>" alt="">
             <img src="<%= img.url %>" alt="">
             <% } %>
-            <!-- <img src="/images/adam-winger-VGs8z60yT2c-unsplash.jpg" alt="">
-                <img src="/images/edelle-bruton-PJNO2sLlbB8-unsplash.jpg" alt="">
-                <img src="/images/mark-champs-Id2IIl1jOB0-unsplash.jpg" alt="">
-                <img src="/images/mky-moody-AUF6Gl4wwzA-unsplash.jpg" alt=""> -->
         </div>
     </div>
 </div>
