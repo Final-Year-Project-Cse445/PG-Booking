@@ -12,7 +12,6 @@ const ExpressError = require("./ErrorHandlers/ExpressError");
 const flash = require("connect-flash");
 const passport = require("passport");
 const { storage, cloudinary } = require("./Cloudinary");
-// const Cloudinary = require('cloudinary').v2;
 const LocalStrategy = require("passport-local");
 const multer = require("multer");
 const upload = multer({ storage });
@@ -112,7 +111,6 @@ const validatePg = (req, res, next) => {
     pg: Joi.object({
       title: Joi.string().required(),
       price: Joi.number().required().min(0),
-      // image : Joi.string().required(),
       location: Joi.string().required(),
       description: Joi.string().required(),
       rating: Joi.number().required().max(5),
@@ -191,7 +189,6 @@ app.get("/home", async (req, res) => {
   res.render("Pg/index", { Pgs });
 });
 app.get("/index", async (req, res) => {
-  // res.send("Hello");
   const Pgs = await pgModel.find({});
   res.render("Pg/index", { Pgs });
 });
@@ -221,7 +218,6 @@ app.post(
   upload.array("pg[image]"),
   validatePg,
   catchAsync(async (req, res, next) => {
-    // if(!req.body.pg) throw new ExpresError('Invalid Pg Data',400);
     const Pg = new pgModel(req.body.pg);
     Pg.image = req.files.map((f) => ({ url: f.path, filename: f.filename }));
     Pg.author = req.user._id;
@@ -232,14 +228,11 @@ app.post(
   })
 );
 
-// app.post('/home/new',upload.single('pg[image]'), (req, res)=>{
-//     res.send(req.body,req.file);
-// })
+
 
 app.get(
   "/home/:id",
   catchAsync(async (req, res) => {
-    // if(!req.params.id) throw new ExpresError('Invalid Pg',404);
     const Pg = await pgModel
       .findById(req.params.id)
       .populate("reviews")
@@ -248,7 +241,6 @@ app.get(
       req.flash("error", "Invalid Pg Request");
       return res.redirect("/home");
     }
-    // console.log(Pg);
     res.render("Pg/view", { Pg });
   })
 );
@@ -276,15 +268,11 @@ app.get(
   catchAsync(async (req, res) => {
     const { id } = req.params;
     const Pg = await pgModel.findById(req.params.id);
-    // const pg = await pgmodel.findById(id);
     if (!Pg) {
       req.flash("error", "Invalid Pg Request");
       return res.redirect("/home");
     }
-    // if(!Pg.author.equals(req.user._id)){
-    //     req.flash('error','Permission denied');
-    //     return res.redirect(`/home/${id}`);
-    // }
+
     res.render("Pg/edit", { Pg });
   })
 );
@@ -328,8 +316,6 @@ app.post(
       req.flash("error", e.message);
       res.redirect("/signup");
     }
-    // console.log(registeredUser);
-    // res.redirect('/home');
   })
 );
 
@@ -352,8 +338,7 @@ app.post(
       req.flash("error", e.message);
       res.redirect("/signup");
     }
-    // console.log(registeredUser);
-    // res.redirect('/home');
+    
   })
 );
 
@@ -383,11 +368,7 @@ app.put(
   validatePg,
   catchAsync(async (req, res) => {
     const { id } = req.params;
-    // const pg = await pgModel.findById(id);
-    // if(!pg.author.equals(req.user._id)){
-    //     req.flash('error','Permission denied');
-    //     return res.redirect(`/home/${id}`);
-    // }
+    
     const Pg = await pgModel.findByIdAndUpdate(id, { ...req.body.pg });
     const imgs = req.files.map((f) => ({ url: f.path, filename: f.filename }));
     Pg.image.push(...imgs);
@@ -438,7 +419,6 @@ app.all("*", (req, res, next) => {
 //ExpressErrorHandler
 app.use((err, req, res, next) => {
   const { statusCode = 500 } = err;
-  // console.log(err.mesage)
   if (!err.message) err.message = "Something went wrong";
   res.status(statusCode).render("Error", { err });
 });
