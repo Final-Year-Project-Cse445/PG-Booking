@@ -5,7 +5,9 @@ module.exports.pgs = [
         description : 'Paying Guest Accommodations',
         location : '42C, Phagwara Ho, Phagwara - 144401, Near Green Park Model Town',
         roomtype : 1,
-        rating : 4.5
+        rating : 4.5,
+        Ownername:"Ramlal",
+        OwnerContact:"1234567890"
     },
     {
         title : 'Jazzy Properties',
@@ -13,7 +15,10 @@ module.exports.pgs = [
         description : 'Paying Guest Accommodations',
         location : 'Lpu Maheru, Phagwara - 144401',
         roomtype : 1,
-        rating : 3.5
+        rating : 3.5,
+        Ownername:"Ramlal",
+        OwnerContact:"1234567890"
+
     },
     {
         title : 'Classic Apartments',
@@ -21,7 +26,9 @@ module.exports.pgs = [
         description : 'Paying Guest Accommodations',
         location : 'Lpu University, Phagwara - 144401',
         roomtype : 1,
-        rating : 3.5
+        rating : 3.5,
+        Ownername:"Ramlal",
+        OwnerContact:"1234567890"
     },
     {
         title : 'Flats On Demand',
@@ -29,7 +36,9 @@ module.exports.pgs = [
         description : 'Paying Guest Accommodations',
         location : 'Lpu University, Phagwara - 144401',
         roomtype : 1,
-        rating : 4.8
+        rating : 4.8,
+        Ownername:"Ramlal",
+        OwnerContact:"1234567890"
     },
     {
         title : 'Ashiana Hostel',
@@ -37,7 +46,9 @@ module.exports.pgs = [
         description : 'Paying Guest Accommodations',
         location : 'Lpu University, Phagwara - 144401',
         roomtype : 1,
-        rating : 3.5
+        rating : 3.5,
+        Ownername:"Ramlal",
+        OwnerContact:"1234567890"
     },
     {
         title : 'Ajit Properties',
@@ -45,7 +56,9 @@ module.exports.pgs = [
         description : 'Paying Guest Accommodations',
         location : '42C, Phagwara Ho, Phagwara - 144401, Near Green Park Model Town',
         roomtype : 1,
-        rating : 4.5
+        rating : 4.5,
+        Ownername:"Ramlal",
+        OwnerContact:"1234567890"
     },
     {
         title : 'Jazzy Properties',
@@ -53,7 +66,9 @@ module.exports.pgs = [
         description : 'Paying Guest Accommodations',
         location : 'Lpu Maheru, Phagwara - 144401',
         roomtype : 1,
-        rating : 3.5
+        rating : 3.5,
+        Ownername:"Ramlal",
+        OwnerContact:"1234567890"
     },
     {
         title : 'Classic Apartments',
@@ -61,7 +76,9 @@ module.exports.pgs = [
         description : 'Paying Guest Accommodations',
         location : 'Lpu University, Phagwara - 144401',
         roomtype : 1,
-        rating : 3.5
+        rating : 3.5,
+        Ownername:"Ramlal",
+        OwnerContact:"1234567890"
     },
     {
         title : 'Flats On Demand',
@@ -69,7 +86,9 @@ module.exports.pgs = [
         description : 'Paying Guest Accommodations',
         location : 'Lpu University, Phagwara - 144401',
         roomtype : 1,
-        rating : 4.8
+        rating : 4.8,
+        Ownername:"Ramlal",
+        OwnerContact:"1234567890"
     },
     {
         title : 'Ashiana Hostel',
@@ -77,6 +96,8 @@ module.exports.pgs = [
         description : 'Paying Guest Accommodations',
         location : 'Lpu University, Phagwara - 144401',
         roomtype : 1,
-        rating : 3.5
+        rating : 3.5,
+        Ownername:"Ramlal",
+        OwnerContact:"1234567890"
     },
 ]

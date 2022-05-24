@@ -27,10 +27,8 @@ const seedDB = async ()=>{
                     filename: 'GMP/atvvyhmo5uogkk3hkwit',
                   }
             ],
-            OwnerDetails : {
-                name : 'RamLal',
-                contact : '123456789'
-            }
+            Ownername: `${pgs[i].Ownername}`,
+            OwnerContact: `${pgs[i].OwnerContact}`,
         });
         await Pg.save();
     }

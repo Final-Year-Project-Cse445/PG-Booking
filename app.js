@@ -226,7 +226,7 @@ app.post(
     Pg.image = req.files.map((f) => ({ url: f.path, filename: f.filename }));
     Pg.author = req.user._id;
     await Pg.save();
-    console.log(Pg);
+    // console.log(Pg);
     req.flash("success", "Successfully Created a new PG");
     res.redirect(`/home/${Pg._id}`);
   })
@@ -248,7 +248,7 @@ app.get(
       req.flash("error", "Invalid Pg Request");
       return res.redirect("/home");
     }
-    // console.log(Pg);
+    console.log(Pg);
     res.render("Pg/view", { Pg });
   })
 );
