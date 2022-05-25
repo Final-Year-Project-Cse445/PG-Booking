@@ -2,6 +2,8 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
+
+
 const express = require("express");
 const mongoose = require("mongoose");
 const ejsMate = require("ejs-mate");
@@ -20,11 +22,28 @@ const { isLoggedIn } = require("./middleware");
 const User = require("./models/user");
 const path = require("path");
 const app = express();
-
+// const ddburl = process.env.DB_URL;
+const dburl = process.env.DB_URL || "mongodb://localhost:27017/test01";
 //sessionfiles
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
+const secret = process.env.secret || 'thisisthedummysecretkey';
+
+const store = MongoStore.create({
+  mongoUrl: dburl,
+  secret, 
+  touchAfter : 24*60*60
+});
+
+store.on("error",function(err){
+  console.log("Session Error", err);
+})
+
+
+
 const sessionconfig = {
-  secret: "thisisthedummysecretkey",
+  store,
+  secret,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -76,7 +95,7 @@ const Review = require("./models/review");
 const user = require("./models/user");
 // const Pgmodel = require("./models/Pgmodel");
 mongoose
-  .connect("mongodb://localhost:27017/test01")
+  .connect(dburl)
   .then(() => {
     console.log("Database Connected");
   })
@@ -205,7 +224,7 @@ app.get("/home/show", async (req, res) => {
 });
 
 app.post("/home_search", async (req, res) => {
-  let { price_range, Room_size, raiting } = req.body;
+  let { price_range = "4000", Room_size = "1", raiting ="1"} = req.body;
   price_range = parseInt(price_range);
   raiting = parseInt(raiting);
   Room_size = parseInt(Room_size);
@@ -238,6 +257,7 @@ app.post(
 
 app.get(
   "/home/:id",
+  isLoggedIn,
   catchAsync(async (req, res) => {
     // if(!req.params.id) throw new ExpresError('Invalid Pg',404);
     const Pg = await pgModel
@@ -248,8 +268,8 @@ app.get(
       req.flash("error", "Invalid Pg Request");
       return res.redirect("/home");
     }
-    console.log(Pg);
-    res.render("Pg/view", { Pg });
+    // console.log(Pg);
+    res.render("Pg/view", { Pg ,admin :req.user.id});
   })
 );
 
@@ -383,16 +403,11 @@ app.put(
   validatePg,
   catchAsync(async (req, res) => {
     const { id } = req.params;
-    // const pg = await pgModel.findById(id);
-    // if(!pg.author.equals(req.user._id)){
-    //     req.flash('error','Permission denied');
-    //     return res.redirect(`/home/${id}`);
-    // }
     const Pg = await pgModel.findByIdAndUpdate(id, { ...req.body.pg });
     const imgs = req.files.map((f) => ({ url: f.path, filename: f.filename }));
     Pg.image.push(...imgs);
     await Pg.save();
-    console.log(req.body.deleteImages);
+    // console.log(req.body.deleteImages);
     if (req.body.deleteImages) {
       for (let filename of req.body.deleteImages) {
         await cloudinary.uploader.destroy(filename);
@@ -421,7 +436,6 @@ app.delete(
 app.delete(
   "/home/:id/reviews/:reviewId",
   isLoggedIn,
-  isAuthor,
   catchAsync(async (req, res) => {
     const { id, reviewId } = req.params;
     await pgModel.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });

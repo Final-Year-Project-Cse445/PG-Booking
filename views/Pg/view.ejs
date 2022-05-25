@@ -99,9 +99,11 @@
                         </div>
                         <div class="del">
                             <!-- <button class="btn btn-danger">Delete</button> -->
+                            <% if (Pg.author.equals(admin)){ %> 
                             <form action="/home/<%= Pg._id %>/reviews/<%= review._id %>?_method=DELETE" method="post">
                                 <button class="btn btn-danger">Delete</button>
                             </form>
+                            <% } %> 
                         </div>
                     </div>
                 </div>
