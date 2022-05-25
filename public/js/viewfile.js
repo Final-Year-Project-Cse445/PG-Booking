@@ -3,6 +3,7 @@ let open=document.getElementById('open');
 let container=document.getElementById('pop-up-container');
 let main_container=document.querySelector('.containers');
 open.addEventListener('click',function(){
+    window.scrollTo(0,0);
     container.classList.remove('show');
     main_container.classList.add('blur');
     console.log(container.classList);
